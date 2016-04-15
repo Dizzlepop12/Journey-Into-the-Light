@@ -9,7 +9,9 @@ public class JourneyAchievements {
 	public static final AchievementPage ap = new AchievementPage("Journey Achievements");
 	public static Achievement achievementOre;
 	public static Achievement achievementGem;
+	public static Achievement achievementBoil;
 	public static Achievement achievementSapphireSword;
+	public static Achievement achievementKillNether;
 	
 	public static void init() {
 		AchievementPage.registerAchievementPage(ap);
@@ -19,6 +21,8 @@ public class JourneyAchievements {
 	private static void registerAchievements() {
 		achievementOre = addAchievement("achievement.ore", "ore", 0, 0, new ItemStack(JourneyItems.sapphire), (Achievement)null);
 		achievementGem = addAchievement("achievement.gem", "gem", -2, 0, new ItemStack(JourneyItems.blueGem), (Achievement)null);
+		achievementBoil = addAchievement("achievement.boil", "boil", -4, -4, new ItemStack(JourneyItems.boilingSkull), (Achievement)null);
+		achievementKillNether = addAchievement("achievement.netherKill", "netherKill", -2, -2, new ItemStack(JourneyItems.blood), (Achievement)null);
 		achievementSapphireSword = addAchievement("achievement.sapphireSword", "sapphireSword", 0, 2, new ItemStack(JourneyItems.sapphireSword), achievementOre);	
 	}
 

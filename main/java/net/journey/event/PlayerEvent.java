@@ -1,6 +1,9 @@
 package net.journey.event;
 
 import net.journey.JourneyItems;
+
+import java.util.Random;
+
 import net.journey.JITL;
 import net.journey.util.Config;
 import net.minecraft.block.material.Material;
@@ -8,13 +11,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
@@ -47,6 +53,20 @@ public class PlayerEvent {
 				if(stack != null && event.state.getBlock() != Blocks.redstone_ore && event.state.getBlock() != Blocks.lapis_ore && event.state.getBlock() != Blocks.lapis_ore) {
 					event.drops.clear();
 					event.drops.add(stack.copy());
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onEntityDrop(LivingDropsEvent event, double rand) {
+		if (event.source.getDamageType().equals("player")) {
+			rand = Math.random();
+			System.out.println("Killed sheepiepoo");
+			if (event.entityLiving instanceof EntitySheep) {
+				System.out.println("Killed sheepiepoo");
+				if (rand < 1D) {
+					event.entityLiving.dropItem(Items.bone, 1);
 				}
 			}
 		}

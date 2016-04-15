@@ -17,12 +17,15 @@ import net.journey.entity.mob.frozen.npc.*;
 import net.journey.entity.mob.nether.EntityHellCow;
 import net.journey.entity.mob.nether.EntityHellbot;
 import net.journey.entity.mob.nether.EntityLavasnake;
+import net.journey.entity.mob.nether.EntityMiniGhast;
 import net.journey.entity.mob.nether.EntityReaper;
 import net.journey.entity.mob.nether.EntityWitherspine;
 import net.journey.entity.mob.overworld.*;
 import net.journey.entity.mob.overworld.EntityWraith;
+import net.journey.entity.mob.overworld.cold.EntityBlizzard;
 import net.journey.entity.mob.overworld.npc.*;
 import net.journey.entity.mob.overworld.underground.*;
+import net.journey.entity.mob.overworld.underground.npc.EntityRockiteGolem;
 import net.journey.entity.mob.pet.EntityShiverwolf;
 import net.journey.entity.mob.pet.EntityTameRoc;
 import net.journey.entity.mob.terrania.mob.EntityPurplian;
@@ -106,7 +109,7 @@ public class EntityRegistry {
 		SlayerAPI.registerNetherMob(EntityLavasnake.class, "lavasnake", "Lavasnake");
 		SlayerAPI.registerNetherMob(EntityHellCow.class, "hellCow", "Hell Cow");
 		SlayerAPI.registerNetherMob(EntityReaper.class, "reaper", "Reaper");
-
+		SlayerAPI.registerNetherMob(EntityMiniGhast.class, "miniGhast", "Mini Ghast");
 	}
 
 	public static void registerOverworldMobs() {
@@ -131,6 +134,7 @@ public class EntityRegistry {
 		SlayerAPI.registerOverworldMob(EntityBlueHonglow.class, "blueHonglow", "Blue Honglow");
 		SlayerAPI.registerOverworldMob(EntitySwampFly.class, "swampFly", "Swamp Fly");
 		SlayerAPI.registerOverworldMob(EntityBoom.class, "boomBoom", "Boom Boom");
+		SlayerAPI.registerOverworldMob(EntityBlizzard.class, "blizzard", "Blizzard");
 		
 		SlayerAPI.registerOverworldMob(EntityTameRoc.class, "tameRoc", "Tame Roc");
 	}
@@ -223,6 +227,7 @@ public class EntityRegistry {
 		SlayerAPI.registerNPC(EntityTerranianTrader.class, "terranianTrader", "Terranian Trader");
 		SlayerAPI.registerNPC(EntityOvergrownMerchant.class, "overgrownMurchant", "Overgrown Merchant");
 		SlayerAPI.registerNPC(EntityTerranianEnchanter.class, "terranianEnchanter", "Terranian Enchanter");
+		SlayerAPI.registerNPC(EntityRockiteGolem.class, "rockiteGolem", "Rockite Golem");
 	}
 
 	public static void registerBosses() {

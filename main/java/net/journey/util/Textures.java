@@ -41,6 +41,7 @@ public class Textures {
 	public static final ResourceLocation terranianEnchanter = addMob("terranianTrader_enchanter");
 	public static final ResourceLocation terranianTrader = addMob("terranianTrader");
 	public static final ResourceLocation overgrownMerchant = addMob("overgrownMerchant");
+	public static final ResourceLocation rockiteGolem = addMob("rockiteGolem");
     
     //Overworld
     public static final ResourceLocation robot = addMob("robot");
@@ -51,6 +52,7 @@ public class Textures {
     public static final ResourceLocation floro = addMob("floro");
     public static final ResourceLocation spectre = addMob("spectre");
 	public static final ResourceLocation swampFly = addMob("swampFly");
+	public static final ResourceLocation blizzard = addMob("blizzard");
     
    // public static final ResourceLocation wraith = addMob("wraith");
     public static final ResourceLocation bigHongo = addMob("bigHongo");
@@ -172,6 +174,7 @@ public class Textures {
 	public static final ResourceLocation terraslug = addMob("terraslug");
 	public static final ResourceLocation terragrow = addMob("terragrow");
 	public static final ResourceLocation terrashroom = addMob("terrashroom");
+	public static final ResourceLocation miniGhast = addMob("miniGhast");
     
 	//Pets
 	public static final ResourceLocation tameRoc = addMob("tameRoc");

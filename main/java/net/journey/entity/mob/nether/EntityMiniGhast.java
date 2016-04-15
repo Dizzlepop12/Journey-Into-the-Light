@@ -1,8 +1,3 @@
-/**
- * An altered version of the Guardian Entity
- * Author ~ Ryan Bakody (Dizzlepop12), and Mojang
- */
-
 package net.journey.entity.mob.nether;
 
 import java.util.Random;
@@ -26,14 +21,14 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.slayer.api.entity.EntityModFlying;
 
-public class EntityLavasnake extends EntityModFlying {
+public class EntityMiniGhast extends EntityModFlying {
 
-	public EntityLavasnake(World par1World) {
+	public EntityMiniGhast(World par1World) {
 		super(par1World);
-		this.moveHelper = new EntityLavasnake.MoveHelper();
-		this.tasks.addTask(5, new EntityLavasnake.AIRandomFly());
-		this.tasks.addTask(7, new EntityLavasnake.AIFireballAttack());
-		this.tasks.addTask(7, new EntityLavasnake.AILookAround());
+		this.moveHelper = new EntityMiniGhast.MoveHelper();
+		this.tasks.addTask(5, new EntityMiniGhast.AIRandomFly());
+		this.tasks.addTask(7, new EntityMiniGhast.AIFireballAttack());
+		this.tasks.addTask(7, new EntityMiniGhast.AILookAround());
 		this.targetTasks.addTask(1, new EntityAIFindEntityNearestPlayer(this));
 		this.isImmuneToFire = true;
 		setSize(0.7F, 1.2F);
@@ -45,22 +40,22 @@ public class EntityLavasnake extends EntityModFlying {
 	}
 
 	@Override
-	protected String getLivingSound()
-	{
-		return "mob.guardian.land.idle";
-	}
+    protected String getLivingSound()
+    {
+        return "mob.ghast.moan";
+    }
 
 	@Override
-	protected String getHurtSound()
-	{
-		return "mob.guardian.land.hit";
-	}
+    protected String getHurtSound()
+    {
+        return "mob.ghast.scream";
+    }
 
 	@Override
-	protected String getDeathSound()
-	{
-		return "mob.guardian.land.death";
-	}
+    protected String getDeathSound()
+    {
+        return "mob.ghast.death";
+    }
 
 	@Override
 	protected float getSoundVolume() {
@@ -75,11 +70,17 @@ public class EntityLavasnake extends EntityModFlying {
 	@Override
 	protected void dropFewItems(boolean b, int j) {
 		if(rand.nextInt(1) == 0) dropItem(JourneyItems.snakeFlesh, 2);
+		super.dropFewItems(b, j);
 		if(rand.nextInt(4) == 0) dropItem(JourneyItems.snakeFlesh, 4);
+		super.dropFewItems(b, j);
 		if(rand.nextInt(2) == 0) dropItem(JourneyItems.snakeFlesh, 1);
+		super.dropFewItems(b, j);
 		if(rand.nextInt(3) == 0) dropItem(JourneyItems.blood, 1);
+		super.dropFewItems(b, j);
 		if(rand.nextInt(5) == 0) dropItem(JourneyItems.blood, 2);
+		super.dropFewItems(b, j);
 		if(rand.nextInt(1) == 0) dropItem(JourneyItems.snakeSkin, 1);
+		super.dropFewItems(b, j);
 		if(rand.nextInt(2) == 0) dropItem(JourneyItems.snakeSkin, 2);
 		super.dropFewItems(b, j);
 	}
@@ -100,7 +101,7 @@ public class EntityLavasnake extends EntityModFlying {
 	}
 
 	private class AIRandomFly extends EntityAIBase {
-		private EntityLavasnake e = EntityLavasnake.this;
+		private EntityMiniGhast e = EntityMiniGhast.this;
 
 		public AIRandomFly() {
 			this.setMutexBits(1);
@@ -136,11 +137,11 @@ public class EntityLavasnake extends EntityModFlying {
 	}
 
 	private class MoveHelper extends EntityMoveHelper {
-		private EntityLavasnake e = EntityLavasnake.this;
+		private EntityMiniGhast e = EntityMiniGhast.this;
 		private int height;
 
 		public MoveHelper() {
-			super(EntityLavasnake.this);
+			super(EntityMiniGhast.this);
 		}
 
 		@Override
@@ -180,7 +181,7 @@ public class EntityLavasnake extends EntityModFlying {
 	}
 
 	public class AILookAround extends EntityAIBase {
-		private EntityLavasnake e = EntityLavasnake.this;
+		private EntityMiniGhast e = EntityMiniGhast.this;
 
 		public AILookAround() {
 			this.setMutexBits(2);
@@ -209,7 +210,7 @@ public class EntityLavasnake extends EntityModFlying {
 	}
 
 	public class AIFireballAttack extends EntityAIBase {
-		private EntityLavasnake entity = EntityLavasnake.this;
+		private EntityMiniGhast entity = EntityMiniGhast.this;
 		public int counter;
 
 		@Override
