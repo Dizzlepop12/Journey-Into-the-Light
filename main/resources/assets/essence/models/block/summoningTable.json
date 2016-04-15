@@ -1,0 +1,9 @@
+{
+	"parent": "essence:block/grass",
+	"textures": {
+		"particle": "essence:blocks/summoningTable_bottom",
+		"bottom": "essence:blocks/summoningTable_bottom",
+		"top": "essence:blocks/summoningTable_top",
+		"side": "essence:blocks/summoningTable_side"
+	}
+}
