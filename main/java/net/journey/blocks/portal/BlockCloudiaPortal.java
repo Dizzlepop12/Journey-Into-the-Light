@@ -2,6 +2,7 @@ package net.journey.blocks.portal;
 
 import java.util.Random;
 
+import net.journey.JourneyAchievements;
 import net.journey.JourneyBlocks;
 import net.journey.JourneyTabs;
 import net.journey.client.render.particles.EntityBoilPotalFX;
@@ -111,6 +112,7 @@ public class BlockCloudiaPortal extends BlockBreakable {
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
 		if ((entity.ridingEntity == null) && (entity.riddenByEntity == null) && ((entity instanceof EntityPlayerMP))) {
 			EntityPlayerMP thePlayer = (EntityPlayerMP)entity;
+			thePlayer.triggerAchievement(JourneyAchievements.achievementCloudia);
 			int dimensionID = Config.cloudia;
 			Block blockFrame = JourneyBlocks.cloudiaPortalFrame;
 			if(thePlayer.timeUntilPortal > 0) 

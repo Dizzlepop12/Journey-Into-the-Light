@@ -1,10 +1,13 @@
 package net.journey.entity.mob.overworld;
 
+import net.journey.JourneyAchievements;
 import net.journey.JourneyItems;
 import net.journey.entity.MobStats;
 import net.journey.enums.EnumSounds;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.slayer.api.SlayerAPI;
 import net.slayer.api.entity.EntityModMob;
@@ -40,6 +43,15 @@ public class EntityBigHongo extends EntityModMob {
 	@Override
 	public EnumSounds setDeathSound() {
 		return EnumSounds.HONGO_HURT;
+	}
+	
+	@Override
+	public void onDeath(DamageSource d) {
+		super.onDeath(d);
+		if(d.getEntity() instanceof EntityPlayer) {
+			EntityPlayer p = (EntityPlayer)d.getEntity();
+			p.triggerAchievement(JourneyAchievements.achievementGiantMushroom);
+		}
 	}
 
 	@Override

@@ -14,14 +14,22 @@ public class LangRegistry {
 	public static LangRegistry instance = new LangRegistry();
 
 	public String location = "C:/Users/Camden/Desktop/JourneyWorkspace/src/Journey-Into-the-Light/main/resources/assets/essence/lang/";
-	//"C:/Users/Camden/Desktop/Essence Modding/src/Essence/main/resources/assets/essence/lang"
 	private BufferedWriter writer;
-	public static ArrayList<String> blockUnloc = new ArrayList<String>(), blockFinal = new ArrayList<String>(), itemUnloc = new ArrayList<String>(), itemFinal = new ArrayList<String>()
-			, fileText = new ArrayList<String>();
+	public static ArrayList<String> 
+		blockUnloc = new ArrayList<String>(), 
+		blockFinal = new ArrayList<String>(), 
+		itemUnloc = new ArrayList<String>(), 
+		itemFinal = new ArrayList<String>(), 
+		fileText = new ArrayList<String>();
 	public static String[] brickNames = {"Black", "Blue", "Brown", "Cyan", "Gray", "Lime", "Magenta", "Orange", "Pink", "Purple", "Red", "White", "Yellow"};
 	public static String[] brickTextures = {"black", "blue", "brown", "cyan", "gray", "lime", "magenta", "orange", "pink", "purple", "red", "white", "yellow"};
 
-	public static ArrayList<String> mobUnloc = new ArrayList<String>(), mobFinal = new ArrayList<String>(), armourUnloc = new ArrayList<String>(), armorType = new ArrayList<String>(), armorPiece = new ArrayList<String>();
+	public static ArrayList<String> 
+		mobUnloc = new ArrayList<String>(), 
+		mobFinal = new ArrayList<String>(), 
+		armourUnloc = new ArrayList<String>(), 
+		armorType = new ArrayList<String>(), 
+		armorPiece = new ArrayList<String>();
 
 	public LangRegistry() {
 		File en_US = new File(location + "en_US.lang");
@@ -36,7 +44,7 @@ public class LangRegistry {
 		}
 	}
 
-	public void misc() {
+	public void creativeTabs() {
 		writeToFile("itemGroup.journey.blocks=Journey into the Light: Blocks");
 		writeToFile("itemGroup.journey.decoration=Journey into the Light: Decoration Blocks");
 		writeToFile("itemGroup.journey.items=Journey into the Light: Items");
@@ -54,12 +62,41 @@ public class LangRegistry {
 		writeToFile("itemGroup.journey.machineBlocks=Journey into the Light: Machine Blocks");
 		writeToFile("itemGroup.journey.portalBlocks=Journey into the Light: Portal Blocks");
 		writeToFile("itemGroup.journey.hammers=Journey into the Light: Hammers");
-		writeToFile("achievement.sapphireSword=Time for an Upgrade");
-		writeToFile("achievement.sapphireSword.desc=Craft a Sapphire Sword");
+
+		for(int j = 0; j < 13; j++) writeToFile("tile." + brickTextures[j] + "ColouredBricks.name=" + brickNames[j] + " Coloured Brick");
+		for(int j = 0; j < 13; j++) writeToFile("tile." + brickTextures[j] + "MiniColouredBricks.name=" + brickNames[j] + " Coloured Mini Brick");
+	}
+	
+	public void achievements() {
+		writeToFile("achievement.sapphireSword=Time for a Journey");
 		writeToFile("achievement.ore=Unfamiliar Substance");
-		writeToFile("achievement.ore.desc=Obtain Sapphire");
 		writeToFile("achievement.gem=Dungeon Looter");
+		writeToFile("achievement.boil=Burning Horizons");
+		writeToFile("achievement.netherKill=Bad Cows Go to the Nether");
+		writeToFile("achievement.giantMushroom=Mushrooms, Tigers, and Bears! Oh My!");
+		writeToFile("achievement.fl=Colder than Ice");
+		writeToFile("achievement.euca=Hostile Royality");
+		writeToFile("achievement.depths=Dark, dark depths");
+		writeToFile("achievement.corba=Overgrown Wasteland");
+		writeToFile("achievement.terrania=The Enchanted Jungle");
+		writeToFile("achievement.cloudia=Ornate Sky Paradise");
+	}
+	
+	public void achievementDescription() {
+		writeToFile("achievement.sapphireSword.desc=Craft a Sapphire Sword");
+		writeToFile("achievement.ore.desc=Obtain Sapphire");
 		writeToFile("achievement.gem.desc=Obtain a dungeon gemstone");
+		writeToFile("achievement.boil.desc=Unlock the Boiling Point Dimension");
+		writeToFile("achievement.netherKill.desc=Kill a Hell Cow");
+		writeToFile("achievement.giantMushroom.desc=Kill a Hongo");
+		writeToFile("achievement.fl.desc=Unlock the Frozen Lands Dimension");
+		writeToFile("achievement.euca.desc=Unlock the Euca Dimension");
+		writeToFile("achievement.depths.desc=Unlock the Depths Dimension");
+		writeToFile("achievement.corba.desc=Unlock the Corba Dimension");
+		writeToFile("achievement.fl.desc=Unlock the Frozen Lands Dimension");
+	}
+	
+	public void misc() {
 		writeToFile("item.record.underwaterWorld.desc=Chris Geddes - Underwater World");
 		writeToFile("item.record.blueWater.desc=Chris Geddes - Blue Water");
 		writeToFile("item.record.raceStar.desc=Chris Geddes - Race Star");
@@ -93,8 +130,6 @@ public class LangRegistry {
 		writeToFile("elf.welcome=Welcome welcome!");
 		writeToFile("elf.hello=Hello!");
 		writeToFile("elf.good=Good to see you!");
-		for(int j = 0; j < 13; j++) writeToFile("tile." + brickTextures[j] + "ColouredBricks.name=" + brickNames[j] + " Coloured Brick");
-		for(int j = 0; j < 13; j++) writeToFile("tile." + brickTextures[j] + "MiniColouredBricks.name=" + brickNames[j] + " Coloured Mini Brick");
 	}
 
 	public void register() {
@@ -102,7 +137,10 @@ public class LangRegistry {
 		item();
 		mob();
 		armour();
+		creativeTabs();
 		misc();
+		achievements();
+		achievementDescription();
 		closeFile();
 	}
 

@@ -1,9 +1,12 @@
 package net.journey.entity.mob.nether;
 
+import net.journey.JourneyAchievements;
 import net.journey.JourneyItems;
 import net.journey.entity.MobStats;
 import net.journey.enums.EnumSounds;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.slayer.api.entity.EntityModMob;
 
@@ -43,11 +46,8 @@ public class EntityHellbot extends EntityModMob {
 	@Override
 	protected void dropFewItems(boolean b, int j) {
 		if(rand.nextInt(5) == 0) dropItem(JourneyItems.flamingSpring, 1);
-		super.dropFewItems(b, j);
 		if(rand.nextInt(80) == 0) dropItem(JourneyItems.flamingSprocket, 1);
-		super.dropFewItems(b, j);
 		if(rand.nextInt(10) == 0) dropItem(JourneyItems.flamingSpring, 2);
-		super.dropFewItems(b, j);
 		if(rand.nextInt(80) == 0) dropItem(JourneyItems.flamingSprocket, 2);
 		super.dropFewItems(b, j);
 	}

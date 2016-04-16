@@ -1,7 +1,8 @@
-package net.journey.blocks;
+package net.journey.blocks.portal;
 
 import java.util.Random;
 
+import net.journey.JourneyAchievements;
 import net.journey.JourneyBlocks;
 import net.journey.JourneyTabs;
 import net.journey.client.render.particles.EntityFrozenPotalFX;
@@ -104,6 +105,7 @@ public class BlockFrozenPortal extends BlockBreakable {
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
 		if ((entity.ridingEntity == null) && (entity.riddenByEntity == null) && ((entity instanceof EntityPlayerMP))) {
 			EntityPlayerMP thePlayer = (EntityPlayerMP)entity;
+			thePlayer.triggerAchievement(JourneyAchievements.achievementFl);
 			int dimensionID = Config.frozen;
 			Block blockFrame = JourneyBlocks.frozenPortalFrame;
 			if(thePlayer.timeUntilPortal > 0) 
