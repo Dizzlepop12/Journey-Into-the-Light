@@ -11,7 +11,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -31,6 +33,8 @@ import net.slayer.api.SlayerAPI;
 
 public class PlayerEvent {
 
+	public static double rand;
+	
 	@SubscribeEvent
 	public void onBlockHarvested(HarvestDropsEvent event) {
 		EntityPlayer p = event.harvester;
@@ -59,14 +63,12 @@ public class PlayerEvent {
 	}
 	
 	@SubscribeEvent
-	public void onEntityDrop(LivingDropsEvent event, double rand) {
+	public void onEntityDrop(LivingDropsEvent event) {
 		if (event.source.getDamageType().equals("player")) {
-			rand = Math.random();
-			System.out.println("Killed sheepiepoo");
-			if (event.entityLiving instanceof EntitySheep) {
-				System.out.println("Killed sheepiepoo");
-				if (rand < 1D) {
-					event.entityLiving.dropItem(Items.bone, 1);
+			this.rand = Math.random();
+			if (event.entityLiving instanceof EntityGhast) {
+				if (this.rand < 3){ 
+					event.entityLiving.dropItem(JourneyItems.ghastTentacle, 1);
 				}
 			}
 		}

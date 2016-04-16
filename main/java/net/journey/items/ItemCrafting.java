@@ -11,6 +11,7 @@ import net.journey.client.server.DarkEnergyBar;
 import net.journey.enums.EnumSounds;
 import net.journey.items.container.ContainerJourneyItemCrafting;
 import net.journey.util.LangRegistry;
+import net.minecraft.block.BlockWorkbench;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -34,10 +35,12 @@ import net.slayer.api.SlayerAPI;
 
 public class ItemCrafting extends Item {
 
-	protected int healAmount = 0;
+private int type;
 
-	public ItemCrafting(String name, String finalName){
+	public ItemCrafting(String name, String finalName, int type){
 		this(name, finalName, JourneyTabs.items);
+		this.maxStackSize = 1;
+		this.type = type;
 	}
 
 	public ItemCrafting(String name, String finalName, CreativeTabs tab){
@@ -48,86 +51,17 @@ public class ItemCrafting extends Item {
 		GameRegistry.registerItem(this, name);
 	}
 
-	public ItemCrafting setHealAmount(int healAmount){
-		this.healAmount = healAmount;
-		return this;
-	}
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		ItemCrafting item = (ItemCrafting)player.getHeldItem().getItem();
 
-	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		EnumSounds.playSound(EnumSounds.CHEST_OPEN_0, world, player);
-        if (world.isRemote)
-        {
-            player.displayGui(new ItemCrafting.InterfaceCrafting(world, null));
-        }
+		if (!world.isRemote) {
+			EnumSounds.playSound(EnumSounds.CHEST_OPEN_0, world, player);
+			if (!player.isSneaking()) {
+				if(item.type == 0) {
+					player.displayGui(new BlockStoneCraftingTable.InterfaceStoneCraftingTable(world, player.getPosition()));
+				}
+			}
+		}
 		return stack;
-	}
-	
-	 public static class InterfaceCrafting implements IInteractionObject
-     {
-         private final World world;
-         private final BlockPos position;
-
-         public InterfaceCrafting(World w, BlockPos p)
-         {
-             this.world = w;
-             this.position = p;
-         }
-
-         public String getName()
-         {
-             return null;
-         }
-
-         public boolean hasCustomName()
-         {
-             return false;
-         }
-
-         public IChatComponent getDisplayName()
-         {
-             return new ChatComponentTranslation(JourneyItems.pocketCrafting.getUnlocalizedName() + ".name", new Object[0]);
-         }
-
-         public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-         {
-             return new ContainerJourneyItemCrafting(playerInventory, this.world, this.position);
-         }
-
-         public String getGuiID()
-         {
-             return "minecraft:crafting_table";
-         }
-     }
-
-	public void spawnEntityIntoWorld(World w, EntityPlayer p, Entity entity, boolean magic, String sound, boolean damage, ItemStack item, int dam) {
-		if(!w.isRemote){
-			if(magic) w.spawnEntityInWorld(entity);
-		}
-		if(magic) {
-			EnumSounds.playSound(sound, w, p);
-			if(damage) item.damageItem(dam, p);
-		}
-	}
-
-	public void spawnEntityIntoWorld(World w, EntityPlayer p, Entity entity, String sound, boolean damage, ItemStack item, int dam) {
-		if(!w.isRemote){
-			w.spawnEntityInWorld(entity);
-			EnumSounds.playSound(sound, w, p);
-			if(damage) item.damageItem(dam, p);
-		}
-	}
-
-	public void spawnEntityIntoWorld(World w, EntityPlayer p, Entity entity, boolean magic, String sound) {
-		spawnEntityIntoWorld(w, p, entity, magic, sound, false, new ItemStack(Items.apple), 0);
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer player, List list){ }
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		addInformation(par1ItemStack, par2EntityPlayer, par3List);
 	}
 }

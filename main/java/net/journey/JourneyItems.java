@@ -620,7 +620,7 @@ public class JourneyItems {
 	public static final Item yellowGem = new ItemMod("yellowGem", "Yellow Gem");
 
 	public static final Item eucaTablet = new ItemMod("eucaTablet", "Euca Tablet");
-	public static final Item pocketCrafting = new ItemCrafting("pocketCrafting", "Sizzling Crafting Pack");
+	public static final Item pocketCrafting = new ItemCrafting("pocketCrafting", "Sizzling Crafting Pack", 0);
 	
 	public static final Item wandBase = new ItemMod("wandBase", "Wand Base");
 	public static final Item staffBase = new ItemMod("staffBase", "Staff Base");
@@ -628,6 +628,8 @@ public class JourneyItems {
 	public static final Item frostyGift = new ItemPresent("frostyGift", "Frosty Gift");
 
 	//TODO
+	public static final Item friedGhastTentacale = new ItemModFood("friedGhastTentacle", "Fried Ghast Tentacale", 1, 0.6F, 10, false);
+	public static final Item ghastTentacle = new ItemModFood("ghastTentacle", "Ghast Tentacale", 4, 0.6F, 10, false);
 	public static final Item friedEgg = new ItemModFood("friedEgg", "Fried Egg", 2, 3.0F, false);
 	public static final Item floroPedal = new ItemModFood("floroPedal", "Floro Pedal", 3, 3.0F, false);
 	public static final Item tomato = new ItemModFood("tomato", "Tomato", 3, 3.0F, false);
