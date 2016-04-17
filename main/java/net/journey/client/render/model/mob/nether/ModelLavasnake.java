@@ -20,7 +20,6 @@ public class ModelLavasnake extends ModelBase
     private ModelRenderer lavasnakeBody;
     private ModelRenderer lavasnakeEye;
     private ModelRenderer[] lavasnakeTail;
-    private static final String __OBFID = "CL_00002628";
 
     public ModelLavasnake()
     {
@@ -56,20 +55,12 @@ public class ModelLavasnake extends ModelBase
         return 54;
     }
 
-    /**
-     * Sets the models various rotation angles then renders the model.
-     */
     public void render(Entity p_78088_1_, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float p_78088_7_)
     {
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, p_78088_7_, p_78088_1_);
         this.lavasnakeBody.render(p_78088_7_);
     }
 
-    /**
-     * Sets the model's various rotation angles. For bipeds, par1 and par2 are used for animating the movement of arms
-     * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how
-     * "far" arms and legs can swing at most.
-     */
     public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity)
     {
         EntityLavasnake entitylavasnake = (EntityLavasnake)par7Entity;

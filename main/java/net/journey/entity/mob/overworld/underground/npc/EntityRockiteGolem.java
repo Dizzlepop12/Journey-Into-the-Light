@@ -29,7 +29,7 @@ public class EntityRockiteGolem extends EntityModVillager {
 			SlayerAPI.addFormattedChatMessage(p, "Rockite: What are you made out of? You don't look like rock to me.");
 			break;
 		case 2:
-			SlayerAPI.addFormattedChatMessage(p, "It gets dark down here sometimes. The glowshrooms help a bit, however.");
+			SlayerAPI.addFormattedChatMessage(p, "Rockite: It gets dark down here sometimes. The glowshrooms help a bit, however.");
 			break;
 		}
 	}
@@ -41,16 +41,12 @@ public class EntityRockiteGolem extends EntityModVillager {
 
 	@Override
 	public void addRecipies(MerchantRecipeList list) {
-		list.add(new MerchantRecipe(new ItemStack(Items.stick, 10), new ItemStack(JourneyItems.purpleGem, 10), new ItemStack(JourneyItems.dawnBreaker)));
-		list.add(new MerchantRecipe(new ItemStack(Items.stick, 10), new ItemStack(JourneyItems.purpleGem, 10), new ItemStack(JourneyItems.tempestBattleaxe)));
-		list.add(new MerchantRecipe(new ItemStack(Items.stick, 10), new ItemStack(JourneyItems.greenGem, 10), new ItemStack(JourneyItems.dragonsTooth)));
-		list.add(new MerchantRecipe(new ItemStack(Items.stick, 10), new ItemStack(JourneyItems.greenGem, 10), new ItemStack(JourneyItems.poisonSword)));
-		list.add(new MerchantRecipe(new ItemStack(Items.stick, 10), new ItemStack(JourneyItems.blueGem, 64), new ItemStack(JourneyItems.cloudSlicer)));
-		list.add(new MerchantRecipe(new ItemStack(Items.stick, 10), new ItemStack(JourneyItems.yellowGem, 10), new ItemStack(JourneyItems.backBiter)));
-		list.add(new MerchantRecipe(new ItemStack(JourneyItems.blueGem, 10), new ItemStack(JourneyItems.yellowGem, 10), new ItemStack(JourneyItems.sunsetPiercer, 1)));
-		//ist.add(new MerchantRecipe(new ItemStack(JourneyItems.blueGem, 10), new ItemStack(JourneyItems.yellowGem, 10), new ItemStack(JourneyItems.aquaticKnife, 1)));
-		list.add(new MerchantRecipe(new ItemStack(JourneyItems.purpleGem, 10), new ItemStack(JourneyItems.greenGem, 10), new ItemStack(JourneyItems.poisonBow, 1)));
-		list.add(new MerchantRecipe(new ItemStack(JourneyItems.purpleGem, 10), new ItemStack(JourneyItems.yellowGem, 10), new ItemStack(JourneyItems.darknessBow, 1)));
-		list.add(new MerchantRecipe(new ItemStack(JourneyItems.purpleGem, 10), new ItemStack(JourneyItems.blueGem, 10), new ItemStack(JourneyItems.frozenBow, 1)));
+		list.add(new MerchantRecipe(new ItemStack(JourneyItems.reinforcedStoneIngot, 4), new ItemStack(JourneyItems.backBiter, 1), new ItemStack(JourneyItems.rockyBattleaxe, 1)));
+		list.add(new MerchantRecipe(new ItemStack(JourneyItems.reinforcedCrystalIngot, 4), new ItemStack(JourneyItems.backBiter, 1), new ItemStack(JourneyItems.crystalizedBattleaxe, 1)));
+		list.add(new MerchantRecipe(new ItemStack(JourneyItems.reinforcedStoneIngot, 4), new ItemStack(JourneyItems.earthenHammer, 1), new ItemStack(JourneyItems.rockyHammer, 1)));
+		list.add(new MerchantRecipe(new ItemStack(JourneyItems.reinforcedCrystalIngot, 4), new ItemStack(JourneyItems.earthenHammer, 1), new ItemStack(JourneyItems.crystalizedHammer, 1)));
+		list.add(new MerchantRecipe(new ItemStack(JourneyItems.reinforcedStoneIngot, 4), new ItemStack(JourneyItems.stoneClump, 1), new ItemStack(JourneyItems.rockLauncher, 1)));
+		list.add(new MerchantRecipe(new ItemStack(JourneyItems.reinforcedCrystalIngot, 4), new ItemStack(JourneyItems.staffOfEnlightenment, 1), new ItemStack(JourneyItems.staffOfDivineStone, 1)));
+		list.add(new MerchantRecipe(new ItemStack(JourneyItems.reinforcedCrystalIngot, 4), new ItemStack(JourneyItems.staffOfDivineStone, 1), new ItemStack(JourneyItems.staffOfCrystal, 1)));
 	}
 } 

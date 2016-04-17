@@ -1,4 +1,4 @@
-package net.journey.client.render.model.mob.overworld;
+package net.journey.client.render.model.mob.overworld.desert;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

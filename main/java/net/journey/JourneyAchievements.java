@@ -19,6 +19,7 @@ public class JourneyAchievements {
 	public static Achievement achievementTerrania;
 	public static Achievement achievementCloudia;
 	public static Achievement achievementFl;
+	public static Achievement achievementCave;
 	
 	public static void init() {
 		AchievementPage.registerAchievementPage(ap);
@@ -38,6 +39,7 @@ public class JourneyAchievements {
 		achievementCorba = addAchievement("achievement.corba", "corba", 2, -4, new ItemStack(JourneyItems.corbaPortalGem), achievementDepths).setSpecial();
 		achievementTerrania = addAchievement("achievement.terrania", "terrania", 4, -4, new ItemStack(JourneyItems.terraniaPortalGem), achievementCorba).setSpecial();
 		achievementCloudia = addAchievement("achievement.cloudia", "cloudia", 6, -4, new ItemStack(JourneyItems.cloudiaPortalGem), achievementTerrania).setSpecial();
+		achievementCave = addAchievement("achievement.cave", "cave", 4, 1, new ItemStack(JourneyItems.caveCrystal), achievementGiantMushroom);
 	}
 
 	private static Achievement addAchievement(String n, String id, int x, int y, ItemStack icon, Achievement a) {

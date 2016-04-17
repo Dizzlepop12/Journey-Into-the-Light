@@ -1,5 +1,6 @@
 package net.journey.entity.mob.overworld.underground;
 
+import net.journey.JourneyAchievements;
 import net.journey.JourneyItems;
 import net.journey.entity.MobStats;
 import net.journey.entity.projectile.EntityConjuring;
@@ -17,6 +18,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.slayer.api.entity.EntityModMob;
 
@@ -85,6 +87,15 @@ public class EntityCaveMage extends EntityModMob implements IRangedAttackMob {
 	@Override
 	public EnumSounds setDeathSound() {
 		return EnumSounds.INSECTO_HURT;
+	}
+
+	@Override
+	public void onDeath(DamageSource d) {
+		super.onDeath(d);
+		if(d.getEntity() instanceof EntityPlayer) {
+			EntityPlayer p = (EntityPlayer)d.getEntity();
+			p.triggerAchievement(JourneyAchievements.achievementCave);
+		}
 	}
 
 	@Override

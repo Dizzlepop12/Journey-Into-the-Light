@@ -200,7 +200,7 @@ public class ArmorAbilityEvent{
 				JourneyItems.bloodcrustLegs && boots == 
 				JourneyItems.bloodcrustBoots) {
 			event.player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 10, 5));
-			event.player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 10, 4));
+			event.player.removePotionEffect(20);
 		}
 		
 		else if(helmet == 
@@ -209,7 +209,7 @@ public class ArmorAbilityEvent{
 				JourneyItems.bleedrockLegs && boots == 
 				JourneyItems.bleedrockBoots) {
 			event.player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 1, 1));
-			event.player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 10, 4));
+			event.player.removePotionEffect(20);
 		}
 		
 		else if(helmet == 

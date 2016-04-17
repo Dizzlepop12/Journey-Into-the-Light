@@ -16,7 +16,7 @@ public class ModelBeastOfTheNether extends ModelBase {
     public ModelRenderer horn1;
     public ModelRenderer horn2;
     public ModelRenderer body2;
-    public ModelRenderer snout;
+    //public ModelRenderer snout;
 
 	public ModelBeastOfTheNether() {
 		this.textureWidth = 64;
@@ -28,9 +28,9 @@ public class ModelBeastOfTheNether extends ModelBase {
         this.body1.setRotationPoint(0.0F, 15.1F, -1.0F);
         this.body1.addBox(-6.0F, -10.0F, -7.0F, 12, 12, 10, 0.0F);
         this.setRotation(body1, -0.136659280431156F, 0.0F, 0.0F);
-        this.snout = new ModelRenderer(this, 5, 9);
-        this.snout.setRotationPoint(0.0F, 5.0F, -8.0F);
-        this.snout.addBox(-3.0F, 5.0F, -5.0F, 6, 3, 2, 0.0F);
+       /** this.snout = new ModelRenderer(this, 5, 9);
+       this.snout.setRotationPoint(0.0F, 5.0F, -8.0F);
+       this.snout.addBox(-3.0F, 5.0F, -5.0F, 6, 3, 2, 0.0F); */
         this.leg2 = new ModelRenderer(this, 45, 45);
         this.leg2.setRotationPoint(4.6F, 12.0F, -5.2F);
         this.leg2.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, 0.0F);
@@ -63,7 +63,7 @@ public class ModelBeastOfTheNether extends ModelBase {
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         this.head.render(f5);
         this.body1.render(f5);
-        this.snout.render(f5);
+        //this.snout.render(f5);
         this.leg2.render(f5);
         this.horn2.render(f5);
         this.body2.render(f5);
@@ -83,8 +83,8 @@ public class ModelBeastOfTheNether extends ModelBase {
 	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity) {
 		this.head.rotateAngleY = par4 / (180F / (float)Math.PI);
 		this.head.rotateAngleX = par5 / (180F / (float)Math.PI);
-		this.snout.rotateAngleY = par4 / (180F / (float)Math.PI);
-		this.snout.rotateAngleX = par5 / (180F / (float)Math.PI);
+		//this.snout.rotateAngleY = par4 / (180F / (float)Math.PI);
+		//this.snout.rotateAngleX = par5 / (180F / (float)Math.PI);
 		this.horn1.rotateAngleY = par4 / (180F / (float)Math.PI);
 		this.horn1.rotateAngleX = par5 / (180F / (float)Math.PI);
 		this.horn2.rotateAngleY = par4 / (180F / (float)Math.PI);

@@ -135,6 +135,7 @@ public class EntityRegistry {
 		SlayerAPI.registerOverworldMob(EntitySwampFly.class, "swampFly", "Swamp Fly");
 		SlayerAPI.registerOverworldMob(EntityBoom.class, "boomBoom", "Boom Boom");
 		SlayerAPI.registerOverworldMob(EntityBlizzard.class, "blizzard", "Blizzard");
+		SlayerAPI.registerOverworldMob(EntityDunewerm.class, "dunewerm", "Dunewerm");
 		
 		SlayerAPI.registerOverworldMob(EntityTameRoc.class, "tameRoc", "Tame Roc");
 	}

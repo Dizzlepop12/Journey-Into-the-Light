@@ -178,6 +178,7 @@ public class Textures {
     
 	//Pets
 	public static final ResourceLocation tameRoc = addMob("tameRoc");
+	public static final ResourceLocation dunewerm = addMob("dunewerm");
 	
     private static ResourceLocation addMob(String tex){
     	return new ResourceLocation(prefix + tex + ".png");

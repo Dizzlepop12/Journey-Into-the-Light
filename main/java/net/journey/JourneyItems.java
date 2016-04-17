@@ -521,6 +521,8 @@ public class JourneyItems {
 	public static final Item bleedrockLegs = new ItemModArmor(EnumArmor.BLEEDROCK, LEGS);
 	public static final Item bleedrockBoots = new ItemModArmor(EnumArmor.BLEEDROCK, BOOTS);
 	
+	public static final Item rockyBattleaxe = new ItemBattleAxe("rockyBattleaxe", "Rocky Battleaxe", EssenceToolMaterial.ROCKY_BATTLEAXE);
+	public static final Item crystalizedBattleaxe = new ItemBattleAxe("crystalizedBattleaxe", "Crystalized Battleaxe", EssenceToolMaterial.CRYSTAL_BATTLEAXE);
 	public static final Item backBiter = new ItemBattleAxe("backBiter", "Back Biter", EssenceToolMaterial.BACK_BITER);
 	public static final Item dawnBreaker = new ItemBattleAxe("dawnBreaker", "Dawn Breaker", EssenceToolMaterial.DAWN_BREAKER);
 	public static final Item tempestBattleaxe = new ItemBattleAxe("tempestBattleaxe", "Tempest Battleaxe", EssenceToolMaterial.TEMPEST_BATTLEAXE);
@@ -530,7 +532,9 @@ public class JourneyItems {
 	public static final Item celekiumBattleaxe = new ItemBattleAxe("celekiumBattleaxe", "Celekium Battleaxe", EssenceToolMaterial.CELEKIUM_BATTLEAXE);
 	public static final Item thunderbirdBattleaxe = new ItemBattleAxe("thunderbirdBattleaxe", "Thunderbird Battleaxe", EssenceToolMaterial.THUNDERBIRD_BATTLEAXE);
 
-	public static final Item staffOfHellstone = new ItemStaff("staffOfHellstone", "Staff of Hellstone", false, 3, 1000, 7, false, EntityBasicProjectile.class);
+	public static final Item staffOfCrystal = new ItemStaff("staffOfCrystal", "Staff of Crystal", false, 3, 1000, 10, false, EntityIceBall.class);
+	public static final Item staffOfDivineStone = new ItemStaff("staffOfDivineStone", "Staff of Divine Stone", false, 3, 1000, 9, false, EntityRock.class);
+	public static final Item staffOfHellstone = new ItemStaff("staffOfHellstone", "Staff of Hellstone", false, 3, 1000, 7, false, EntityHellstone.class);
 	public static final Item doomsBringer = new ItemStaff("doomsBringer", "Dooms Bringer", false, 3, 1000, 12, false, EntityDoomsBringer.class);
 	public static final Item conjuringStaff = new ItemStaff("conjuringStaff", "Conjuring Staff", false, 3, 1000, 18, false, EntityConjuring.class);
 	public static final Item staffOfEnlightenment = new ItemStaff("staffOfEnlightenment", "Staff Of Enlightenment", true, 3, 1000, 14, false, EntityEnlightenment.class);
@@ -563,35 +567,35 @@ public class JourneyItems {
 	public static final Item flameBow = new ItemModBow("flameBow", "Flame Bow", 384, 3, essenceArrow,"Sets enemies ablaze", EntityFlameArrow.class);
 	public static final Item poisonBow = new ItemModBow("poisonBow", "Poison Bow", 384, 3, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
 	public static final Item darknessBow = new ItemModBow("darknessBow", "Darkness Bow", 384, 3, essenceArrow,"Withers foe", EntityDarknessArrow.class);
-	public static final Item frozenBow = new ItemModBow("frozenBow", "Frozen Bow", 384, 5, essenceArrow,"Slows enemies", EntityFrozenArrow.class);
+	public static final Item frozenBow = new ItemModBow("frozenBow", "Frozen Bow", 384, 3, essenceArrow,"Slows enemies", EntityFrozenArrow.class);
 	public static final Item staringBow = new ItemModBow("staringBow", "Staring Bow", 456, 4, essenceArrow, "Sets enemies ablaze", EntityFlameArrow.class);
-	public static final Item deathPiercerBow = new ItemModBow("deathPiercerBow", "Death Piercer Bow", 892, 5, essenceArrow, 0, "Withers foe", EntityDarknessArrow.class);
-	public static final Item fusionBow = new ItemModBow("fusionBow", "Fusion Bow", 456, 3, essenceArrow,"Withers foe", EntityDarknessArrow.class);
-	public static final Item springBow = new ItemModBow("springBow", "Spring Bow", 384, 2, essenceArrow,"Sets enemies ablaze", EntityFlameArrow.class);
+	public static final Item deathPiercerBow = new ItemModBow("deathPiercerBow", "Death Piercer Bow", 892, 6, essenceArrow, 0, "Withers foe", EntityDarknessArrow.class);
+	public static final Item fusionBow = new ItemModBow("fusionBow", "Fusion Bow", 456, 4, essenceArrow,"Withers foe", EntityDarknessArrow.class);
+	public static final Item springBow = new ItemModBow("springBow", "Spring Bow", 384, 5, essenceArrow,"Sets enemies ablaze", EntityFlameArrow.class);
 	public static final Item starlightBow = new ItemModBow("starlightBow", "Starlight Bow", 384, 6, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
-	public static final Item wastefulBow = new ItemModBow("wastefulBow", "Wasteful Bow", 892, 4, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
-	public static final Item flamingBow = new ItemModBow("flamingBow", "Flaming Bow", 384, 7, essenceArrow,"Sets enemies ablaze", EntityFlameArrow.class);
-	public static final Item blazingBow = new ItemModBow("blazingBow", "Blazing Bow", 456, 5, essenceArrow,"Sets enemies ablaze", EntityFlameArrow.class);
-	public static final Item darkEnforcer = new ItemModBow("darkEnforcer", "Dark Enforcer", 384, 6, essenceArrow,"Withers foe", EntityDarknessArrow.class);
-	public static final Item depthsBow = new ItemModBow("depthsBow", "Depths Bow", 892, 3, essenceArrow,"Withers foe", EntityDarknessArrow.class);
-	public static final Item frostbittenBow = new ItemModBow("frostbittenBow", "Frostbitten Bow", 384, 3, essenceArrow,"Slows enemies", EntityFrozenArrow.class);
-	public static final Item frostyBow = new ItemModBow("frostyBow", "Frosty Bow", 456, 3, essenceArrow,"Slows enemies", EntityFrozenArrow.class);
-	public static final Item charredBow = new ItemModBow("charredBow", "Charred Bow", 384, 4, essenceArrow,"Slows enemies", EntityFrozenArrow.class);
+	public static final Item wastefulBow = new ItemModBow("wastefulBow", "Wasteful Bow", 892, 5, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
+	public static final Item flamingBow = new ItemModBow("flamingBow", "Flaming Bow", 384, 4, essenceArrow,"Sets enemies ablaze", EntityFlameArrow.class);
+	public static final Item blazingBow = new ItemModBow("blazingBow", "Blazing Bow", 456, 4, essenceArrow,"Sets enemies ablaze", EntityFlameArrow.class);
+	public static final Item darkEnforcer = new ItemModBow("darkEnforcer", "Dark Enforcer", 384, 4, essenceArrow,"Withers foe", EntityDarknessArrow.class);
+	public static final Item depthsBow = new ItemModBow("depthsBow", "Depths Bow", 892, 4, essenceArrow,"Withers foe", EntityDarknessArrow.class);
+	public static final Item frostbittenBow = new ItemModBow("frostbittenBow", "Frostbitten Bow", 384, 4, essenceArrow,"Slows enemies", EntityFrozenArrow.class);
+	public static final Item frostyBow = new ItemModBow("frostyBow", "Frosty Bow", 456, 4, essenceArrow,"Slows enemies", EntityFrozenArrow.class);
+	public static final Item charredBow = new ItemModBow("charredBow", "Charred Bow", 384, 5, essenceArrow,"Withers enemies", EntityDarknessArrow.class);
 	public static final Item fluffyBow = new ItemModBow("fluffyBow", "Fluffy Bow", 892, 9, essenceArrow,"Slows enemies", EntityFrozenArrow.class);
-	public static final Item golemBow = new ItemModBow("golemBow", "Golem Bow", 456, 5, essenceArrow,"Withers foe", EntityDarknessArrow.class);
-	public static final Item loggersBow = new ItemModBow("loggersBow", "Loggers Bow", 384, 3, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
-	public static final Item overgrownBow = new ItemModBow("overgrownBow", "Overgrown Bow", 384, 4, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
-	public static final Item overseerBow = new ItemModBow("overseerBow", "Overseer Bow", 384, 5, essenceArrow,"Withers foe", EntityDarknessArrow.class);
-	public static final Item woodlandBow = new ItemModBow("woodlandBow", "Woodland Bow", 456, 3, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
-	public static final Item rocsWing = new ItemModBow("rocsWing", "Rocs Wing", 892, 3, essenceArrow,"Withers foe", EntityDarknessArrow.class);
-	public static final Item scaleBow = new ItemModBow("scaleBow", "Scale Bow", 456, 4, essenceArrow,"Withers foe", EntityDarknessArrow.class);
+	public static final Item golemBow = new ItemModBow("golemBow", "Golem Bow", 456, 7, essenceArrow,"Withers foe", EntityDarknessArrow.class);
+	public static final Item loggersBow = new ItemModBow("loggersBow", "Loggers Bow", 384, 6, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
+	public static final Item overgrownBow = new ItemModBow("overgrownBow", "Overgrown Bow", 384, 7, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
+	public static final Item overseerBow = new ItemModBow("overseerBow", "Overseer Bow", 384, 7, essenceArrow,"Withers foe", EntityDarknessArrow.class);
+	public static final Item woodlandBow = new ItemModBow("woodlandBow", "Woodland Bow", 456, 7, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
+	public static final Item rocsWing = new ItemModBow("rocsWing", "Rocs Wing", 892, 6, essenceArrow,"Withers foe", EntityDarknessArrow.class);
+	public static final Item scaleBow = new ItemModBow("scaleBow", "Scale Bow", 456, 7, essenceArrow,"Withers foe", EntityDarknessArrow.class);
 	public static final Item mantleBow = new ItemModBow("mantleBow", "Mantle Bow", 384, 5, essenceArrow,"Sets enemies ablaze", EntityFlameArrow.class);
-	public static final Item coreExpender = new ItemModBow("coreExpender", "Core Expender", 384, 7, essenceArrow,"Withers foe", EntityFlameArrow.class);
-	public static final Item royalBow = new ItemModBow("royalBow", "Royal Bow", 384, 4, essenceArrow,"Withers foe", EntityDarknessArrow.class);
-	public static final Item darkTerraBow = new ItemModBow("darkTerraBow", "Dark Terra Bow", 456, 6, essenceArrow,"Withers foe", EntityDarknessArrow.class);
-	public static final Item lavenderBow = new ItemModBow("lavenderBow", "Lavender Bow", 892, 5, essenceArrow,"Slows enemies", EntityFrozenArrow.class);
-	public static final Item terralightBow = new ItemModBow("terralightBow", "Terralight Bow", 384, 3, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
-	public static final Item terrianBow = new ItemModBow("terrianBow", "Terrian Bow", 384, 4, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
+	public static final Item coreExpender = new ItemModBow("coreExpender", "Core Expender", 384, 6, essenceArrow,"Withers foe", EntityFlameArrow.class);
+	public static final Item royalBow = new ItemModBow("royalBow", "Royal Bow", 384, 5, essenceArrow,"Withers foe", EntityDarknessArrow.class);
+	public static final Item darkTerraBow = new ItemModBow("darkTerraBow", "Dark Terra Bow", 456, 5, essenceArrow,"Withers foe", EntityDarknessArrow.class);
+	public static final Item lavenderBow = new ItemModBow("lavenderBow", "Lavender Bow", 892, 6, essenceArrow,"Slows enemies", EntityFrozenArrow.class);
+	public static final Item terralightBow = new ItemModBow("terralightBow", "Terralight Bow", 384, 7, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
+	public static final Item terrianBow = new ItemModBow("terrianBow", "Terrian Bow", 384, 6, essenceArrow,"Poisons enemies", EntityPoisonArrow.class);
 
 	//public static final Item backpack = new ItemBackpack("backpack");
 
@@ -606,6 +610,8 @@ public class JourneyItems {
 	public static final Item withicHammer = new ItemHammer("withicHammer", "Withic Hammer", EssenceToolMaterial.WITHIC_HAMMER, false, EntityWithic.class, false, true, 9, 4, 1230);
 	public static final Item royalHammer = new ItemHammer("royalHammer", "Royal Hammer", EssenceToolMaterial.ROYAL_HAMMER, false, EntityFireBall.class, false, true, 12, 4, 1320);
 	public static final Item overgrownHammer = new ItemHammer("overgrownHammer", "Overgrown Hammer", EssenceToolMaterial.OVERGROWN_HAMMER, false, EntityOvergrown.class, false, true, 12, 4, 1320);
+	public static final Item rockyHammer = new ItemHammer("rockyHammer", "Rocky Hammer", EssenceToolMaterial.ROCKY_HAMMER, false, EntityRock.class, false, true, 6, 4, 2230);
+	public static final Item crystalizedHammer = new ItemHammer("crystalizedHammer", "Crystalized Hammer", EssenceToolMaterial.CRYSTAL_HAMMER, false, EntityIceBall.class, false, true, 7, 4, 3320);
 	
 	public static final Item chaosCannon = new ItemChaosCannon("chaosCannon", "Chaos Cannon", 6, 4, "Shoots a bouncing projectile");
 	public static final Item rockLauncher = new ItemGun("rockLauncher", "Rock Launcher", 4, "Stuns mobs for 10 seconds", EntityRock.class);
@@ -628,14 +634,16 @@ public class JourneyItems {
 	public static final Item frostyGift = new ItemPresent("frostyGift", "Frosty Gift");
 
 	//TODO
-	public static final Item friedGhastTentacale = new ItemModFood("friedGhastTentacle", "Fried Ghast Tentacale", 1, 0.6F, 10, false);
-	public static final Item ghastTentacle = new ItemModFood("ghastTentacle", "Ghast Tentacale", 4, 0.6F, 10, false);
-	public static final Item friedEgg = new ItemModFood("friedEgg", "Fried Egg", 2, 3.0F, false);
-	public static final Item floroPedal = new ItemModFood("floroPedal", "Floro Pedal", 3, 3.0F, false);
-	public static final Item tomato = new ItemModFood("tomato", "Tomato", 3, 3.0F, false);
-	public static final Item glowshroom = new ItemModFood("glowshroom", "Glowshroom", 4, 3.0F, false).setAlwaysEdible().setPotionEffect(Potion.nightVision.id, 10, 1, 1.0F).setAlwaysEdible();
-	public static final Item terrashroom = new ItemModFood("terrashroom", "Terrashroom", 8, 6.0F, false).setAlwaysEdible().setPotionEffect(Potion.nightVision.id, 10, 1, 1.0F).setAlwaysEdible();
-	public static final Item corveggies = new ItemCorveggies("corveggies", "Corveggies", 4, 3.0F, false, false).setPotionEffect(Potion.saturation.id, 20, 1, 1.0F).setAlwaysEdible();
+	public static final Item friedFlamingGhastTentacale = new ItemModFood("friedFlamingGhastTentacle", "Fried Flaming Tentacale", 4, 0.6F, 10, false).setAlwaysEdible().setPotionEffect(Potion.fireResistance.id, 5, 1, 1.0F);
+	public static final Item flamingGhastTentacle = new ItemModFood("flamingGhastTentacle", "Flaming Ghast Tentacale", 1, 0.6F, 10, false).setAlwaysEdible().setPotionEffect(Potion.fireResistance.id, 5, 1, 1.0F);
+	public static final Item friedGhastTentacale = new ItemModFood("friedGhastTentacle", "Fried Ghast Tentacale", 4, 0.6F, 10, false);
+	public static final Item ghastTentacle = new ItemModFood("ghastTentacle", "Ghast Tentacale", 1, 0.6F, 10, false);
+	public static final Item friedEgg = new ItemModFood("friedEgg", "Fried Egg", 2, 0.6F, 10, false);
+	public static final Item floroPedal = new ItemModFood("floroPedal", "Floro Pedal", 3, 0.6F, 10, false);
+	public static final Item tomato = new ItemModFood("tomato", "Tomato", 3, 0.6F, 10, false);
+	public static final Item glowshroom = new ItemModFood("glowshroom", "Glowshroom", 4, 0.6F, 10, false).setAlwaysEdible().setPotionEffect(Potion.nightVision.id, 10, 1, 1.0F).setAlwaysEdible();
+	public static final Item terrashroom = new ItemModFood("terrashroom", "Terrashroom", 8, 0.6F, 10, false).setAlwaysEdible().setPotionEffect(Potion.nightVision.id, 10, 1, 1.0F).setAlwaysEdible();
+	public static final Item corveggies = new ItemModFood("corveggies", "Corveggies", 4, 0.6F, 10, false).setPotionEffect(Potion.saturation.id, 20, 1, 1.0F).setAlwaysEdible();
 	public static final Item crackenCanes = new ItemCrackenCanes("crackenCanes", "Kracken Canes", 4, 3.0F, false, false).setPotionEffect(Potion.damageBoost.id, 20, 1, 1.0F).setAlwaysEdible();
 	public static final Item crakeBulb = new ItemCrakeBulb("crakeBulb"," Crake Bulb", 4, 3.0F, false, false).setPotionEffect(Potion.waterBreathing.id, 20, 1, 1.0F).setAlwaysEdible();
 	public static final Item spineberries = new ItemSpineberries("spineBerries", "Spine Berries", 4, 3.0F, false, false).setPotionEffect(Potion.absorption.id, 20, 1, 1.0F).setAlwaysEdible();
@@ -644,10 +652,10 @@ public class JourneyItems {
 	public static final Item mintCandyCane = new ItemCandyCane("mintCandyCane", "Mint Candy Cane", 3, 1.6F, false, false).setPotionEffect(Potion.digSpeed.id, 10, 1, 1.0F).setAlwaysEdible();
 	public static final Item fruityCandyCane = new ItemCandyCane("fruityCandyCane", "Fruity Candy Cane", 3, 1.6F, false, false).setPotionEffect(Potion.damageBoost.id, 10, 1, 1.0F).setAlwaysEdible();
 	public static final Item cherryCandyCane = new ItemCandyCane("cherryCandyCane", "Cherry Candy Cane", 3, 1.6F, false, false).setPotionEffect(Potion.regeneration.id, 10, 1, 1.0F).setAlwaysEdible();
-	public static final Item peppermint = new ItemModFood("peppermint", "Peppermint", 1, 2.0F, false);
-	public static final Item jellyBeans = new ItemModFood("jellyBeans", "Jelly Beans", 1, 1.0F, false);
-	public static final Item chocolate = new ItemModFood("chocolate", "Chocolate Bar", 2, 1.0F, false);
-	public static final Item vanillaWafer = new ItemModFood("vanillaWafer", "Vanilla Wafer", 1, 1.0F, false);
+	public static final Item peppermint = new ItemModFood("peppermint", "Peppermint", 1, 0.1F, 10, false);
+	public static final Item jellyBeans = new ItemModFood("jellyBeans", "Jelly Beans", 1, 0.1F, 10, false);
+	public static final Item chocolate = new ItemModFood("chocolate", "Chocolate Bar", 2, 0.1F, 10, false);
+	public static final Item vanillaWafer = new ItemModFood("vanillaWafer", "Vanilla Wafer", 1, 0.1F, 10, false);
 	public static final Item goldenSteak = new ItemGoldenFood("normalGoldenSteak", "Golden Steak", 6, 1.2F, false, false).setPotionEffect(Potion.regeneration.id, 5, 1, 1.0F).setAlwaysEdible();
 	public static final Item goldenSteakOP = new ItemGoldenFood("OPGoldenSteak", "Golden Steak", 10, 1.2F, false, true).setPotionEffect(Potion.regeneration.id, 5, 1, 1.0F).setAlwaysEdible();
 	public static final Item goldenPotato = new ItemGoldenFood("normalGoldenPotato", "Golden Potato", 3, 1.2F, false, false).setPotionEffect(Potion.regeneration.id, 5, 1, 1.0F).setAlwaysEdible();

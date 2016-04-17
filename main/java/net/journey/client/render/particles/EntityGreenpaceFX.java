@@ -22,7 +22,7 @@ public class EntityGreenpaceFX extends EntityFX {
         this.portalPosY = this.posY = var4;
         this.portalPosZ = this.posZ = var6;
         float var14 = this.rand.nextFloat() * 0.6F + 0.4F;
-        this.portalParticleScale = this.particleScale = this.rand.nextFloat() * 0.2F + 0.5F;
+        this.portalParticleScale = this.particleScale = this.rand.nextFloat() * 0.2F;
         this.particleBlue = 0.0F;
         this.particleGreen = 1.0F;
         this.particleRed = 0.0F;

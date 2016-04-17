@@ -1,260 +1,265 @@
 package net.journey.entity.mob.overworld.cold;
 
-import java.util.Random;
+import java.util.List;
 
+import net.journey.JourneyBlocks;
 import net.journey.JourneyItems;
 import net.journey.entity.MobStats;
-import net.journey.entity.projectile.EntityShimmererProjectile;
+import net.journey.entity.projectile.EntityBlizzardFireball;
+import net.journey.entity.projectile.EntityMagmaFireball;
 import net.journey.enums.EnumSounds;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
-import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.slayer.api.entity.EntityModFlying;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.slayer.api.SlayerAPI;
+import net.slayer.api.entity.EntityModMob;
 
-public class EntityBlizzard extends EntityModFlying {
+public class EntityBlizzard extends EntityModMob {
 
-	public EntityBlizzard(World par1World) {
-		super(par1World);
-		this.moveHelper = new EntityBlizzard.MoveHelper();
-		this.tasks.addTask(5, new EntityBlizzard.AIRandomFly());
-		this.tasks.addTask(7, new EntityBlizzard.AIFireballAttack());
-		this.tasks.addTask(7, new EntityBlizzard.AILookAround());
-		this.targetTasks.addTask(1, new EntityAIFindEntityNearestPlayer(this));
-		this.isImmuneToFire = true;
-		setSize(0.7F, 1.2F);
+	private float heightOffset = 0.5F;
+	private int heightOffsetUpdateTime;
+	private int attackTimer;
+
+	public EntityBlizzard(World w) {
+		super(w);
+		this.experienceValue = 10;
+        this.tasks.addTask(4, new EntityBlizzard.AIFireballAttack(this));
+        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
+        this.tasks.addTask(7, new EntityAIWander(this, 1.0D));
+        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(8, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+	}
+
+    protected void entityInit()
+    {
+        super.entityInit();
+        this.dataWatcher.addObject(16, new Byte((byte)0));
+    }
+
+    protected String getLivingSound()
+    {
+        return "mob.blaze.breathe";
+    }
+
+    protected String getHurtSound()
+    {
+        return "mob.blaze.hit";
+    }
+
+    protected String getDeathSound()
+    {
+        return "mob.blaze.death";
+    }
+
+    @SideOnly(Side.CLIENT)
+    public int getBrightnessForRender(float partialTicks)
+    {
+        return 15728880;
+    }
+
+    public float getBrightness(float partialTicks)
+    {
+        return 1.0F;
+    }
+
+    public void onLivingUpdate()
+    {
+        if (!this.onGround && this.motionY < 0.0D)
+        {
+            this.motionY *= 0.6D;
+        }
+
+        if (this.worldObj.isRemote)
+        {
+            if (this.rand.nextInt(24) == 0 && !this.isSilent())
+            {
+            }
+
+            for (int i = 0; i < 2; ++i)
+            {
+                this.worldObj.spawnParticle(EnumParticleTypes.SNOWBALL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D, new int[0]);
+            }
+        }
+
+        super.onLivingUpdate();
+    }
+
+    protected void updateAITasks()
+    {
+        if (this.isWet())
+        {
+            this.attackEntityFrom(DamageSource.drown, 1.0F);
+        }
+
+        --this.heightOffsetUpdateTime;
+
+        if (this.heightOffsetUpdateTime <= 0)
+        {
+            this.heightOffsetUpdateTime = 100;
+            this.heightOffset = 0.5F + (float)this.rand.nextGaussian() * 3.0F;
+        }
+
+        EntityLivingBase entitylivingbase = this.getAttackTarget();
+
+        if (entitylivingbase != null && entitylivingbase.posY + (double)entitylivingbase.getEyeHeight() > this.posY + (double)this.getEyeHeight() + (double)this.heightOffset)
+        {
+            this.motionY += (0.30000001192092896D - this.motionY) * 0.30000001192092896D;
+            this.isAirBorne = true;
+        }
+
+        super.updateAITasks();
+    }
+
+    public void fall(float distance, float damageMultiplier){}
+
+    protected Item getDropItem()
+    {
+        return Items.snowball;
+    }
+
+    public boolean isBurning()
+    {
+        return this.func_70845_n();
+    }
+
+    protected void dropFewItems(boolean p_70628_1_, int p_70628_2_)
+    {
+        if (p_70628_1_)
+        {
+            int i = this.rand.nextInt(2 + p_70628_2_);
+
+            for (int j = 0; j < i; ++j)
+            {
+                this.dropItem(Items.snowball, 2);
+    			this.dropItem(SlayerAPI.toItem(Blocks.snow), 2);
+    			this.dropItem(SlayerAPI.toItem(Blocks.packed_ice), 1);
+            }
+        }
+    }
+
+    public boolean func_70845_n()
+    {
+        return (this.dataWatcher.getWatchableObjectByte(16) & 1) != 0;
+    }
+
+    static class AIFireballAttack extends EntityAIBase
+        {
+            private EntityBlizzard blaze;
+            private int field_179467_b;
+            private int field_179468_c;
+
+            public AIFireballAttack(EntityBlizzard entityBlizzard)
+            {
+                this.blaze = entityBlizzard;
+                this.setMutexBits(3);
+            }
+
+            public boolean shouldExecute()
+            {
+                EntityLivingBase entitylivingbase = this.blaze.getAttackTarget();
+                return entitylivingbase != null && entitylivingbase.isEntityAlive();
+            }
+
+            public void startExecuting()
+            {
+                this.field_179467_b = 0;
+            }
+
+            public void updateTask()
+            {
+                --this.field_179468_c;
+                EntityLivingBase entitylivingbase = this.blaze.getAttackTarget();
+                double d0 = this.blaze.getDistanceSqToEntity(entitylivingbase);
+
+                if (d0 < 4.0D)
+                {
+                    if (this.field_179468_c <= 0)
+                    {
+                        this.field_179468_c = 20;
+                        this.blaze.attackEntityAsMob(entitylivingbase);
+                    }
+
+                    this.blaze.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
+                }
+                else if (d0 < 256.0D)
+                {
+                    double d1 = entitylivingbase.posX - this.blaze.posX;
+                    double d2 = entitylivingbase.getEntityBoundingBox().minY + (double)(entitylivingbase.height / 2.0F) - (this.blaze.posY + (double)(this.blaze.height / 2.0F));
+                    double d3 = entitylivingbase.posZ - this.blaze.posZ;
+
+                    if (this.field_179468_c <= 0)
+                    {
+                        ++this.field_179467_b;
+
+                        if (this.field_179467_b == 1)
+                        {
+                            this.field_179468_c = 60;
+                        }
+                        else if (this.field_179467_b <= 4)
+                        {
+                            this.field_179468_c = 6;
+                        }
+                        else
+                        {
+                            this.field_179468_c = 100;
+                            this.field_179467_b = 0;
+                        }
+
+                        if (this.field_179467_b > 1)
+                        {
+                            float f = MathHelper.sqrt_float(MathHelper.sqrt_double(d0)) * 0.5F;
+                            this.blaze.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, new BlockPos((int)this.blaze.posX, (int)this.blaze.posY, (int)this.blaze.posZ), 0);
+
+                            for (int i = 0; i < 1; ++i)
+                            {
+                                EntityBlizzardFireball entitysmallfireball = new EntityBlizzardFireball(this.blaze.worldObj, this.blaze, d1 + this.blaze.getRNG().nextGaussian() * (double)f, d2, d3 + this.blaze.getRNG().nextGaussian() * (double)f);
+                                entitysmallfireball.posY = this.blaze.posY + (double)(this.blaze.height / 2.0F) + 0.5D;
+                                this.blaze.worldObj.spawnEntityInWorld(entitysmallfireball);
+                            }
+                        }
+                    }
+
+                    this.blaze.getLookHelper().setLookPositionWithEntity(entitylivingbase, 10.0F, 10.0F);
+                }
+                else
+                {
+                    this.blaze.getNavigator().clearPathEntity();
+                    this.blaze.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
+                }
+
+                super.updateTask();
+            }
+        }
+
+	@Override
+	public double setAttackDamage(MobStats s) {
+		return 0;
 	}
 
 	@Override
 	public double setMaxHealth(MobStats s) {
-		return s.flyingHealth;
-	}
-
-	@Override
-	protected String getLivingSound()
-	{
-		return "mob.ghast.idle";
-	}
-
-	@Override
-	protected String getHurtSound()
-	{
-		return "mob.ghast.hit";
-	}
-
-	@Override
-	protected String getDeathSound()
-	{
-		return "mob.ghast.death";
-	}
-
-	@Override
-	protected float getSoundVolume() {
-		return 10.0F;
-	}
-
-	@Override
-	public boolean getCanSpawnHere() {
-		return super.rand.nextInt(15) == 0 && super.getCanSpawnHere() && this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL;
-	}		
-
-	@Override
-	protected void dropFewItems(boolean b, int j) {
-		if(rand.nextInt(1) == 0) dropItem(JourneyItems.snakeFlesh, 2);
-		super.dropFewItems(b, j);
-		if(rand.nextInt(4) == 0) dropItem(JourneyItems.snakeFlesh, 4);
-		super.dropFewItems(b, j);
-		if(rand.nextInt(2) == 0) dropItem(JourneyItems.snakeFlesh, 1);
-		super.dropFewItems(b, j);
-		if(rand.nextInt(3) == 0) dropItem(JourneyItems.blood, 1);
-		super.dropFewItems(b, j);
-		if(rand.nextInt(5) == 0) dropItem(JourneyItems.blood, 2);
-		super.dropFewItems(b, j);
-		if(rand.nextInt(1) == 0) dropItem(JourneyItems.snakeSkin, 1);
-		super.dropFewItems(b, j);
-		if(rand.nextInt(2) == 0) dropItem(JourneyItems.snakeSkin, 2);
-		super.dropFewItems(b, j);
-	}
-
-	@Override
-	protected void entityInit() {
-		super.entityInit();
-		this.dataWatcher.addObject(16, Byte.valueOf((byte)0));
-	}
-
-	@Override
-	public Item getItemDropped() {
-		return null;
-	}
-
-	public void setFire(boolean b) {
-		this.dataWatcher.updateObject(16, Byte.valueOf((byte)(b ? 1 : 0)));
-	}
-
-	private class AIRandomFly extends EntityAIBase {
-		private EntityBlizzard e = EntityBlizzard.this;
-
-		public AIRandomFly() {
-			this.setMutexBits(1);
-		}
-
-		@Override
-		public boolean shouldExecute() {
-			EntityMoveHelper entitymovehelper = this.e.getMoveHelper();
-			if(!entitymovehelper.isUpdating()) {
-				return true;
-			} else {
-				double d0 = entitymovehelper.getX() - this.e.posX;
-				double d1 = entitymovehelper.getY() - this.e.posY;
-				double d2 = entitymovehelper.getZ() - this.e.posZ;
-				double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-				return d3 < 1.0D || d3 > 3600.0D;
-			}
-		}
-
-		@Override
-		public boolean continueExecuting() {
-			return false;
-		}
-
-		@Override
-		public void startExecuting() {
-			Random random = this.e.getRNG();
-			double d0 = this.e.posX + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-			double d1 = this.e.posY + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-			double d2 = this.e.posZ + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-			this.e.getMoveHelper().setMoveTo(d0, d1, d2, 1.0D);
-		}
-	}
-
-	private class MoveHelper extends EntityMoveHelper {
-		private EntityBlizzard e = EntityBlizzard.this;
-		private int height;
-
-		public MoveHelper() {
-			super(EntityBlizzard.this);
-		}
-
-		@Override
-		public void onUpdateMoveHelper() {
-			if(this.update) {
-				double d0 = this.posX - this.e.posX;
-				double d1 = this.posY - this.e.posY;
-				double d2 = this.posZ - this.e.posZ;
-				double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-				if(this.height-- <= 0) {
-					this.height += this.e.getRNG().nextInt(5) + 2;
-					d3 = (double)MathHelper.sqrt_double(d3);
-					if(this.canMove(this.posX, this.posY, this.posZ, d3)) {
-						this.e.motionX += d0 / d3 * 0.1D;
-						this.e.motionY += d1 / d3 * 0.1D;
-						this.e.motionZ += d2 / d3 * 0.1D;
-					} else {
-						this.update = false;
-					}
-				}
-			}
-		}
-
-		private boolean canMove(double x, double y, double z, double h)  {
-			double d4 = (x - this.e.posX) / h;
-			double d5 = (y - this.e.posY) / h;
-			double d6 = (z - this.e.posZ) / h;
-			AxisAlignedBB axisalignedbb = this.e.getEntityBoundingBox();
-			for(int i = 1; (double)i < h; ++i) {
-				axisalignedbb = axisalignedbb.offset(d4, d5, d6);
-				if(!this.e.worldObj.getCollidingBoundingBoxes(this.e, axisalignedbb).isEmpty()) {
-					return false;
-				}
-			}
-			return true;
-		}
-	}
-
-	public class AILookAround extends EntityAIBase {
-		private EntityBlizzard e = EntityBlizzard.this;
-
-		public AILookAround() {
-			this.setMutexBits(2);
-		}
-
-		@Override
-		public boolean shouldExecute() {
-			return true;
-		}
-
-		@Override
-		public void updateTask() {
-			if (this.e.getAttackTarget() == null) {
-				this.e.renderYawOffset = this.e.rotationYaw = -((float)Math.atan2(this.e.motionX, this.e.motionZ)) * 180.0F / (float)Math.PI;
-			} else {
-				EntityLivingBase entitylivingbase = this.e.getAttackTarget();
-				double d0 = 64.0D;
-
-				if (entitylivingbase.getDistanceSqToEntity(this.e) < d0 * d0) {
-					double d1 = entitylivingbase.posX - this.e.posX;
-					double d2 = entitylivingbase.posZ - this.e.posZ;
-					this.e.renderYawOffset = this.e.rotationYaw = -((float)Math.atan2(d1, d2)) * 180.0F / (float)Math.PI;
-				}
-			}
-		}
-	}
-
-	public class AIFireballAttack extends EntityAIBase {
-		private EntityBlizzard entity = EntityBlizzard.this;
-		public int counter;
-
-		@Override
-		public boolean shouldExecute() {
-			return this.entity.getAttackTarget() != null;
-		}
-
-		@Override
-		public void startExecuting() {
-			this.counter = 0;
-		}
-
-		@Override
-		public void resetTask() {
-			this.entity.setFire(false);
-		}
-
-		@Override
-		public void updateTask() {
-			EntityLivingBase entitylivingbase = this.entity.getAttackTarget();
-			double d0 = 64.0D;
-
-			if(entitylivingbase.getDistanceSqToEntity(this.entity) < d0 * d0 && this.entity.canEntityBeSeen(entitylivingbase)) {
-				World world = this.entity.worldObj;
-				counter++;
-
-				if(this.counter == 20) {
-					double d1 = 4.0D;
-					Vec3 vec3 = this.entity.getLook(1.0F);
-					double d2 = entitylivingbase.posX - (this.entity.posX + vec3.xCoord * d1);
-					double d3 = entitylivingbase.getEntityBoundingBox().minY + (double)(entitylivingbase.height / 2.0F) - (0.5D + this.entity.posY + (double)(this.entity.height / 2.0F));
-					double d4 = entitylivingbase.posZ - (this.entity.posZ + vec3.zCoord * d1);
-					world.playAuxSFXAtEntity((EntityPlayer)null, 1008, new BlockPos(this.entity), 0);
-					EntityShimmererProjectile projectile = new EntityShimmererProjectile(world, this.entity, d2, d3, d4);
-					projectile.posX = this.entity.posX + vec3.xCoord * d1;
-					projectile.posY = this.entity.posY + (double)(this.entity.height / 2.0F) + 0.5D;
-					projectile.posZ = this.entity.posZ + vec3.zCoord * d1;
-					world.spawnEntityInWorld(projectile);
-					this.counter = -40;
-				}
-			}
-			else if(this.counter > 0) counter--;
-			this.entity.setFire(this.counter > 10);
-		}
+		return 60;
 	}
 
 	@Override
@@ -270,5 +275,10 @@ public class EntityBlizzard extends EntityModFlying {
 	@Override
 	public EnumSounds setDeathSound() {
 		return EnumSounds.EMPTY;
+	}
+
+	@Override
+	public Item getItemDropped() {
+		return Items.snowball;
 	}
 }

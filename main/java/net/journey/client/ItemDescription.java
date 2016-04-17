@@ -14,9 +14,8 @@ public class ItemDescription {
 		Item item = itemStack.getItem();
 		if(item == JourneyItems.glowshroom) { list.add(SlayerAPI.Colour.GREEN + "Grants night vision when eaten"); {}
 		if(item == JourneyItems.terrashroom) { list.add(SlayerAPI.Colour.LIGHT_PURPLE + "Grants night vision when eaten"); {}
-		
-		
+		if(item == JourneyItems.corveggies) { list.add(SlayerAPI.Colour.YELLOW + "Grants saturation when eaten"); {}
 		}}
-	}
+	}}
 }
 

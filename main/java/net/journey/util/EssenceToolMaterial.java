@@ -89,6 +89,8 @@ public enum EssenceToolMaterial {
 	WITHIC_HAMMER(SlayerAPI.addMeleeMaterial(1000, 9, 25)),
 	ROYAL_HAMMER(SlayerAPI.addMeleeMaterial(1000, 11, 25)),
 	OVERGROWN_HAMMER(SlayerAPI.addMeleeMaterial(1000, 16, 25)),
+	ROCKY_HAMMER(SlayerAPI.addMeleeMaterial(2230, 8, 25)),
+	CRYSTAL_HAMMER(SlayerAPI.addMeleeMaterial(3320, 9, 25)),
 	
 	DEVELOPER_SWORD(SlayerAPI.addMeleeMaterial(3000, 9000, 25)),
 	
@@ -109,6 +111,8 @@ public enum EssenceToolMaterial {
 	GOLD_MULTI_TOOL(JourneyItems.goldMulti, Items.gold_ingot, 3),
 	DIAMOND_MULTI_TOOL(JourneyItems.diamondMulti, Items.diamond, 3),
 
+	CRYSTAL_BATTLEAXE(SlayerAPI.addAxeMaterial(3, 3600, 13, 17, 25)),
+	ROCKY_BATTLEAXE(SlayerAPI.addAxeMaterial(3, 2600, 13, 16, 25)),
 	BACK_BITER(SlayerAPI.addAxeMaterial(3, 1300, 13, 15, 25)),
 	DAWN_BREAKER(SlayerAPI.addAxeMaterial(3, 1300, 13, 10, 25)),
 	TEMPEST_BATTLEAXE(SlayerAPI.addAxeMaterial(3, 1300, 13, 13, 25)),

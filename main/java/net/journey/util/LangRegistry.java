@@ -80,6 +80,7 @@ public class LangRegistry {
 		writeToFile("achievement.corba=Overgrown Wasteland");
 		writeToFile("achievement.terrania=The Enchanted Jungle");
 		writeToFile("achievement.cloudia=Ornate Sky Paradise");
+		writeToFile("achievement.cave=Agressive Caverns");
 	}
 	
 	public void achievementDescription() {
@@ -93,7 +94,9 @@ public class LangRegistry {
 		writeToFile("achievement.euca.desc=Unlock the Euca Dimension");
 		writeToFile("achievement.depths.desc=Unlock the Depths Dimension");
 		writeToFile("achievement.corba.desc=Unlock the Corba Dimension");
-		writeToFile("achievement.fl.desc=Unlock the Frozen Lands Dimension");
+		writeToFile("achievement.terrania.desc=Unlock the Terrania Dimension");
+		writeToFile("achievement.cloudia.desc=Unlock the Cloudia Dimension");
+		writeToFile("achievement.cave.desc=Kill an Underground Mob");
 	}
 	
 	public void misc() {

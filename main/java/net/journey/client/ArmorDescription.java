@@ -141,12 +141,12 @@ public class ArmorDescription {
 		
 		if(i == JourneyItems.bloodcrustHelmet || i == JourneyItems.bloodcrustChest || i == JourneyItems.bloodcrustLegs || i == JourneyItems.bloodcrustBoots) {
 			list.add(SlayerAPI.Colour.AQUA + "Full set: " + SlayerAPI.Colour.GOLD + "Grants fire resistance");
-			list.add(SlayerAPI.Colour.AQUA + "Full set: " + SlayerAPI.Colour.GOLD + "Grants regeneration");
+			list.add(SlayerAPI.Colour.AQUA + "Full set: " + SlayerAPI.Colour.GOLD + "Grants immunity towards Wither effects");
 		}
 		
 		if(i == JourneyItems.bleedrockHelmet || i == JourneyItems.bleedrockChest || i == JourneyItems.bleedrockLegs || i == JourneyItems.bleedrockBoots) {
-			list.add(SlayerAPI.Colour.AQUA + "Full set: " + SlayerAPI.Colour.GOLD + "Grants regeneration");
-			list.add(SlayerAPI.Colour.AQUA + "Full set: " + SlayerAPI.Colour.GOLD + "Grants absorption");
+			list.add(SlayerAPI.Colour.AQUA + "Full set: " + SlayerAPI.Colour.GOLD + "Grants immunity towards Wither effects");
+			list.add(SlayerAPI.Colour.AQUA + "Full set: " + SlayerAPI.Colour.GOLD + "Grants strength");
 		}
 	}
 }
