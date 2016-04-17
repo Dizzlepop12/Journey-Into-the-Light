@@ -274,7 +274,7 @@ public class EntityDarknessArrow extends EntityArrow implements IProjectile {
 					if(movingobjectposition.typeOfHit == MovingObjectType.ENTITY){
 						if(movingobjectposition.entityHit instanceof EntityLivingBase && !(movingobjectposition.entityHit instanceof EntityEnderman) && !(movingobjectposition.entityHit == shootingEntity)) {
 							EntityLivingBase e = (EntityLivingBase)movingobjectposition.entityHit;
-							e.addPotionEffect(new PotionEffect(Potion.blindness.id, 100, 1));
+							e.addPotionEffect(new PotionEffect(Potion.wither.id, 100, 1));
 						}
 					}
 

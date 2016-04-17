@@ -1,7 +1,7 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "particle": "blocks/summoningTable_side",
+        "particle": "essence:blocks/summoningTable_side",
         "0": "essence:blocks/summoningTable_legs",
         "1": "essence:blocks/summoningTable_side",
         "2": "essence:blocks/summoningTable_top",
@@ -63,7 +63,7 @@
         },
         {
             "name": "table",
-            "from": [ 0.0, 9.0, 0.0 ], 
+            "from": [ 0.0, 8.0, 0.0 ], 
             "to": [ 16.0, 12.0, 16.0 ], 
             "faces": {
                 "north": { "texture": "#1", "uv": [ 0.0, 10.0, 16.0, 6.0 ] },

@@ -57,7 +57,7 @@ public class SummoningTableRenderer extends TileEntitySpecialRenderer {
 			float timeD = (float) (360.0 * (double) (System.currentTimeMillis() & 0x3FFFL) / (double) 0x3FFFL) * 8;
 			float scale = middle ? 1.0F : 0.7F;
 			GL11.glPushMatrix();
-			GL11.glTranslated(x, y + 1.0D, z);
+			GL11.glTranslated(x, y + 0.75D, z);
 			GlStateManager.rotate(timeD, 0.0F, 1.0F, 0.0F);
 			ItemStack i = stack;
 			EntityItem item = new EntityItem(w, x, y, z, i);

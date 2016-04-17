@@ -61,6 +61,7 @@ import net.journey.entity.mob.overworld.cold.EntityBlizzard;
 import net.journey.entity.mob.overworld.npc.*;
 import net.journey.entity.mob.overworld.underground.*;
 import net.journey.entity.mob.overworld.underground.npc.EntityRockiteGolem;
+import net.journey.entity.mob.pet.EntityFerret;
 import net.journey.entity.mob.pet.EntityShiverwolf;
 import net.journey.entity.mob.pet.EntityTameRoc;
 import net.journey.entity.mob.terrania.mob.EntityPurplian;
@@ -221,6 +222,7 @@ public class EntityRendering {
 		RenderingRegistry.registerEntityRenderingHandler(EntityMiniGhast.class, new RenderModMob(new ModelMiniGhast(), Textures.miniGhast));
 		RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, new RenderModMob(new ModelBlizzard(), Textures.blizzard));
 		RenderingRegistry.registerEntityRenderingHandler(EntityRockiteGolem.class, new RenderModMob(new ModelRockiteGolem(), Textures.rockiteGolem));
+		RenderingRegistry.registerEntityRenderingHandler(EntityFerret.class, new RenderModMob(new ModelFerret(), Textures.ferret));
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityDragonEgg.class, new RenderDragonEgg(new ModelDragonEgg()));
 		

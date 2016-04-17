@@ -27,12 +27,6 @@ public class ModelLavasnake extends ModelBase
         this.textureHeight = 64;
         this.lavasnakeBody = new ModelRenderer(this);
         this.lavasnakeBody.setTextureOffset(0, 0).addBox(-6.0F, 10.0F, -8.0F, 12, 12, 16);
-        //this.lavasnakeBody.setTextureOffset(0, 28).addBox(-8.0F, 10.0F, -6.0F, 2, 12, 12);
-        //this.lavasnakeBody.setTextureOffset(0, 28).addBox(6.0F, 10.0F, -6.0F, 2, 12, 12, true);
-        //this.lavasnakeBody.setTextureOffset(16, 40).addBox(-6.0F, 8.0F, -6.0F, 12, 2, 12);
-        //this.lavasnakeBody.setTextureOffset(16, 40).addBox(-6.0F, 22.0F, -6.0F, 12, 2, 12);
-        {
-        }
 
         this.lavasnakeEye = new ModelRenderer(this, 8, 0);
         this.lavasnakeEye.addBox(-1.0F, 15.0F, 0.0F, 2, 2, 1);
