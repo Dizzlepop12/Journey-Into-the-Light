@@ -259,15 +259,15 @@ public class EntityShiverwolf extends EntityModTameable
     }
 
     @SideOnly(Side.CLIENT)
-    public float getShadingWhileWet(float p_70915_1_)
+    public float getShadingWhileWet(float f1)
     {
-        return 0.75F + (this.prevTimeWolfIsShaking + (this.timeWolfIsShaking - this.prevTimeWolfIsShaking) * p_70915_1_) / 2.0F * 0.25F;
+        return 0.75F + (this.prevTimeWolfIsShaking + (this.timeWolfIsShaking - this.prevTimeWolfIsShaking) * f1) / 2.0F * 0.25F;
     }
 
     @SideOnly(Side.CLIENT)
-    public float getShakeAngle(float p_70923_1_, float p_70923_2_)
+    public float getShakeAngle(float par1, float par2)
     {
-        float f = (this.prevTimeWolfIsShaking + (this.timeWolfIsShaking - this.prevTimeWolfIsShaking) * p_70923_1_ + p_70923_2_) / 1.8F;
+        float f = (this.prevTimeWolfIsShaking + (this.timeWolfIsShaking - this.prevTimeWolfIsShaking) * par1 + par2) / 1.8F;
 
         if (f < 0.0F)
         {
@@ -282,9 +282,9 @@ public class EntityShiverwolf extends EntityModTameable
     }
 
     @SideOnly(Side.CLIENT)
-    public float getInterestedAngle(float p_70917_1_)
+    public float getInterestedAngle(float par1)
     {
-        return (this.headRotationCourseOld + (this.headRotationCourse - this.headRotationCourseOld) * p_70917_1_) * 0.15F * (float)Math.PI;
+        return (this.headRotationCourseOld + (this.headRotationCourse - this.headRotationCourseOld) * par1) * 0.15F * (float)Math.PI;
     }
     @Override
     public float getEyeHeight()
@@ -297,6 +297,7 @@ public class EntityShiverwolf extends EntityModTameable
         return this.isSitting() ? 20 : super.getVerticalFaceSpeed();
     }
 
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
         if (this.isEntityInvulnerable(source))

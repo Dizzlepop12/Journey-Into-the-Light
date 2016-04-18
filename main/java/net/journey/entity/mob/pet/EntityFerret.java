@@ -1,315 +1,307 @@
 package net.journey.entity.mob.pet;
 
-import net.journey.entity.MobStats;
-import net.journey.enums.EnumSounds;
+import com.google.common.base.Predicate;
+
+import net.journey.JourneyAchievements;
+import net.journey.JourneyItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIBeg;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
-import net.minecraft.entity.ai.EntityAIOwnerHurtByTarget;
-import net.minecraft.entity.ai.EntityAIOwnerHurtTarget;
+import net.minecraft.entity.ai.EntityAIOcelotAttack;
+import net.minecraft.entity.ai.EntityAIOcelotSit;
 import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITargetNonTamed;
+import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slayer.api.entity.EntityModTameable;
 
-public class EntityFerret extends EntityModTameable {
-	
-	private float headRotationCourse;
-    private float headRotationCourseOld;
-    
-	public EntityFerret(World w) {
-		super(w);		
+public class EntityFerret extends EntityModTameable{
+    private EntityAIAvoidEntity<EntityPlayer> avoidEntity;
+    private EntityAITempt aiTempt;
+
+    public EntityFerret(World worldIn){
+        super(worldIn);
+        this.setSize(0.6F, 0.7F);
+        ((PathNavigateGround)this.getNavigator()).setAvoidsWater(true);
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, this.aiSit);
-        this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
-        this.tasks.addTask(4, new EntityAIAttackOnCollide(this, 1.0F, true));
-        this.tasks.addTask(5, new EntityAIFollowOwner(this, 1.0F, 10.0F, 2.0F));
-        this.tasks.addTask(6, new EntityAIMate(this, 1.0F));
-        this.tasks.addTask(7, new EntityAIWander(this, 1.0F));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(9, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
-        this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
-        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
-		this.setSize(1.0F, 1.0F);
-	}
-	
-	public EntityFerret(World w, EntityPlayer player) {
-		super(w);
-		this.setSize(1.0F, 1.0F);
-		this.setOwnerId(player.getUniqueID().toString());
-		this.setTamed(true);
-	}
-
-	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(MobStats.baseNetherHealth);
-		if(this.isTamed()) this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(MobStats.baseNetherHealth);
-		else this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(MobStats.baseNetherHealth);
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
-        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(2.0D);
-	}
-
-	@Override
-	public EntityAgeable createChild(EntityAgeable var1) {
-		EntityFerret e = new EntityFerret(this.worldObj);
-		String s = this.getOwnerId();
-		if(s != null && s.trim().length() > 0) {
-			e.setOwnerId(s);
-			e.setTamed(true);
-		}
-		return e;
-	}
-
-    protected void updateAITasks()
-    {
-        this.dataWatcher.updateObject(18, Float.valueOf(this.getHealth()));
+        this.tasks.addTask(3, this.aiTempt = new EntityAITempt(this, 0.6D, JourneyItems.floroPedal, true));
+        this.tasks.addTask(5, new EntityAIFollowOwner(this, 1.0D, 10.0F, 5.0F));
+        this.tasks.addTask(7, new EntityAILeapAtTarget(this, 0.3F));
+        this.tasks.addTask(8, new EntityAIOcelotAttack(this));
+        this.tasks.addTask(9, new EntityAIMate(this, 0.8D));
+        this.tasks.addTask(10, new EntityAIWander(this, 0.8D));
+        this.tasks.addTask(11, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
+        this.targetTasks.addTask(1, new EntityAITargetNonTamed(this, EntityChicken.class, false, (Predicate)null));
     }
-    
-	@Override
-	public void setAttackTarget(EntityLivingBase par1EntityLivingBase) {
-		super.setAttackTarget(par1EntityLivingBase);
-		if(par1EntityLivingBase == null) this.setAngry(false);
-		else if(!this.isTamed()) this.setAngry(true);
-	}
-	
-	@Override
-    public void onLivingUpdate()
-    {
-        super.onLivingUpdate();
 
-        if (!this.worldObj.isRemote && !this.hasPath() && this.onGround) {
-        this.worldObj.setEntityState(this, (byte)8);
+    @Override
+    protected void entityInit(){
+        super.entityInit();
+        this.dataWatcher.addObject(18, Byte.valueOf((byte)0));
+    }
+
+    @Override
+    public void updateAITasks(){
+        if (this.getMoveHelper().isUpdating()){
+            double d0 = this.getMoveHelper().getSpeed();
+
+            if (d0 == 0.6D){
+                this.setSneaking(true);
+                this.setSprinting(false);
+            }
+            else if (d0 == 1.33D){
+                this.setSneaking(false);
+                this.setSprinting(true);
+            }
+            else{
+                this.setSneaking(false);
+                this.setSprinting(false);
+            }
         }
-        if (!this.worldObj.isRemote && this.getAttackTarget() == null && this.isAngry()) {
-        this.setAngry(false);
+        else{
+            this.setSneaking(false);
+            this.setSprinting(false);
         }
     }
 
-	@Override
-	protected void entityInit() {
-		super.entityInit();
-		this.dataWatcher.addObject(18, new Float(this.getHealth()));
-        this.dataWatcher.addObject(19, new Byte((byte)0));
-	}
+    @Override
+    protected boolean canDespawn(){
+        return !this.isTamed() && this.ticksExisted > 2400;
+    }
 
-	@Override
-	protected void updateAITick() {
-		this.dataWatcher.updateObject(18, Float.valueOf(this.getHealth()));
-	}
+    @Override
+    protected void applyEntityAttributes(){
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.30000001192092896D);
+    }
 
-	@Override
-	protected void playStepSound(BlockPos pos, Block b) {
-		this.playSound("mob.wolf.step", 0.15F, 1.0F);
-	}
-	
-	@Override
-	public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
-		super.writeEntityToNBT(par1NBTTagCompound);
-		par1NBTTagCompound.setBoolean("Angry", this.isAngry());
-	}
+    @Override
+    public void fall(float distance, float damageMultiplier){}
 
-	@Override
-	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
-		super.readEntityFromNBT(par1NBTTagCompound);
-		this.setAngry(par1NBTTagCompound.getBoolean("Angry"));
-	}
-
-	@Override
-	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-		if(this.isEntityInvulnerable(par1DamageSource)) return false;
-		else {
-			Entity entity = par1DamageSource.getEntity();
-			this.aiSit.setSitting(false);
-			if(entity != null && !(entity instanceof EntityPlayer) && !(entity instanceof EntityArrow))            
-				par2 = (par2 + 1.0F) / 2.0F;
-			return super.attackEntityFrom(par1DamageSource, par2);
-		}
-	}
-
-	@Override
-	public boolean attackEntityAsMob(Entity par1Entity) {
-		int i = this.isTamed() ? 10 : 5;
-		return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this),(float)i);
-		
-	}
-
-	@Override
-	public void setTamed(boolean par1) {
-		super.setTamed(par1);
-		if(par1) this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(MobStats.baseNetherHealth);
-		else this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(MobStats.baseNetherHealth);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(8.0D);
-	}
-	
-	@Override
-    public void mountPlayer(EntityPlayer player)
+    @Override
+    public void writeEntityToNBT(NBTTagCompound tagCompound)
     {
-        player.rotationYaw = this.rotationYaw;
-        player.rotationPitch = this.rotationPitch;
+        super.writeEntityToNBT(tagCompound);
+    }
 
-        if (!this.worldObj.isRemote)
-        {
-            player.mountEntity(this);
+    @Override
+    public void readEntityFromNBT(NBTTagCompound tagCompund){
+        super.readEntityFromNBT(tagCompund);
+    }
+
+    @Override
+    protected String getLivingSound(){
+        return this.isTamed() ? (this.isInLove() ? "mob.cat.purr" : (this.rand.nextInt(4) == 0 ? "mob.cat.purreow" : "mob.cat.meow")) : "";
+    }
+
+    @Override
+    protected String getHurtSound(){
+        return "mob.cat.hitt";
+    }
+
+    @Override
+    protected String getDeathSound(){
+        return "mob.cat.hitt";
+    }
+
+    @Override
+    protected float getSoundVolume(){
+        return 0.4F;
+    }
+
+    @Override
+    protected Item getDropItem(){
+        return Items.leather;
+    }
+
+    @Override
+    public boolean attackEntityAsMob(Entity entityIn){
+        return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 3.0F);
+    }
+
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount){
+        if (this.isEntityInvulnerable(source)){
+            return false;
+        }
+        else{
+            this.aiSit.setSitting(false);
+            return super.attackEntityFrom(source, amount);
         }
     }
 
-	@Override
-	public boolean interact(EntityPlayer par1EntityPlayer) {
-		ItemStack itemstack = par1EntityPlayer.inventory.getCurrentItem();
+    @Override
+    protected void dropFewItems(boolean p_70628_1_, int p_70628_2_){}
 
-		if(this.isTamed()) {
-			if(itemstack != null) {
-				if(itemstack.getItem() instanceof ItemFood) {
-					ItemFood itemfood = (ItemFood)itemstack.getItem();
-					if(itemfood.isWolfsFavoriteMeat() && this.dataWatcher.getWatchableObjectFloat(18) < 75.0F) {
-						if(!par1EntityPlayer.capabilities.isCreativeMode)
-							--itemstack.stackSize;            
-						this.heal((float)itemfood.getHealAmount(itemstack));
-						if(itemstack.stackSize <= 0)
-							par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem,(ItemStack)null);
-						return true;
-					}
-				}
-			}
+    @Override
+    public boolean interact(EntityPlayer player){
+        ItemStack itemstack = player.inventory.getCurrentItem();
 
-			if(isOwner(par1EntityPlayer) && !this.worldObj.isRemote && !this.isBreedingItem(itemstack)) {
-				this.aiSit.setSitting(!this.isSitting());
-				this.isJumping = false;
-				this.navigator.clearPathEntity();
-				this.setAttackTarget((EntityLivingBase)null);
-			}
-			
-			if(itemstack != null && itemstack.getItem() == Items.bread && !this.isAngry()) {
-				if(!par1EntityPlayer.capabilities.isCreativeMode)    
-					--itemstack.stackSize;
+        if (this.isTamed()){
+            if (this.isOwner(player) && !this.worldObj.isRemote && !this.isBreedingItem(itemstack)){
+                this.aiSit.setSitting(!this.isSitting());
+            }
+        }
+        else if (this.aiTempt.isRunning() && itemstack != null && itemstack.getItem() == JourneyItems.floroPedal && player.getDistanceSqToEntity(this) < 9.0D){
+            if (!player.capabilities.isCreativeMode){
+                --itemstack.stackSize;
+            }
 
-				if(itemstack.stackSize <= 0) par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem,(ItemStack)null);
+            if (itemstack.stackSize <= 0){
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
+            }
 
-				if(!this.worldObj.isRemote) {
-					if(this.rand.nextInt(3) == 0) {
-						this.navigator.clearPathEntity();
-						this.setAttackTarget((EntityLivingBase)null);
-						this.aiSit.setSitting(true);
-						this.setHealth(75.0F);
-						this.setOwnerId(par1EntityPlayer.getUniqueID().toString());
-						this.setTamed(true);
-						this.playTameEffect(true);
-						this.worldObj.setEntityState(this,(byte)7);
-					} else {
-						this.playTameEffect(false);
-						this.worldObj.setEntityState(this,(byte)6);
-					}
-			
-			if (!this.worldObj.isRemote)
-            {
-                if (this.rand.nextInt(3) == 0)
-                {
+            if (!this.worldObj.isRemote){
+                if (this.rand.nextInt(3) == 0){
                     this.setTamed(true);
-                    this.navigator.clearPathEntity();
-                    this.setAttackTarget((EntityLivingBase)null);
-                    this.aiSit.setSitting(true);
-                    this.setHealth(75.0F);
-                    this.setOwnerId(par1EntityPlayer.getUniqueID().toString());
+                    this.setOwnerId(player.getUniqueID().toString());
+                    player.triggerAchievement(JourneyAchievements.achievementPet);
                     this.playTameEffect(true);
+                    this.aiSit.setSitting(true);
                     this.worldObj.setEntityState(this, (byte)7);
                 }
-                else
-                {
+                else{
                     this.playTameEffect(false);
                     this.worldObj.setEntityState(this, (byte)6);
                 }
             }
 
             return true;
-			}
-		}
-	}
-	return super.interact(par1EntityPlayer);
-	}
+        }
 
-	@Override
-	public boolean isBreedingItem(ItemStack i) {
-		return i == null ? false : i.getItem() == Items.bread;
-	}
+        return super.interact(player);
+    }
 
-	@Override
-	public boolean isAngry() {
-		return(this.dataWatcher.getWatchableObjectByte(16) & 2) != 0;
-	}
+    @Override
+    public EntityFerret createChild(EntityAgeable ageable){
+        EntityFerret entityferret = new EntityFerret(this.worldObj);
 
-	@Override
-	public void setAngry(boolean b) {
-		byte b0 = this.dataWatcher.getWatchableObjectByte(16);
-		if(b) this.dataWatcher.updateObject(16, Byte.valueOf((byte)(b0 | 2)));
-		else this.dataWatcher.updateObject(16, Byte.valueOf((byte)(b0 & -3)));
-	}
+        if (this.isTamed()){
+            entityferret.setOwnerId(this.getOwnerId());
+            entityferret.setTamed(true);
+        }
 
-	@Override
-	protected boolean canDespawn() {
-		return !this.isTamed() && this.ticksExisted > 1200;
-	}
+        return entityferret;
+    }
 
-	public boolean func_142018_a(EntityLivingBase par1EntityLivingBase, EntityLivingBase par2EntityLivingBase) {
-		if(!(par1EntityLivingBase instanceof EntityCreeper) && !(par1EntityLivingBase instanceof EntityGhast)) {
-			if(par1EntityLivingBase instanceof EntityFerret) {
-				EntityFerret pig = (EntityFerret)par1EntityLivingBase;
-				if(pig.isTamed() && pig.getOwner() == par2EntityLivingBase) return false;
-			}
-			return par1EntityLivingBase instanceof EntityPlayer && par2EntityLivingBase instanceof EntityPlayer && !((EntityPlayer)par2EntityLivingBase).canAttackPlayer((EntityPlayer)par1EntityLivingBase) ? false : !(par1EntityLivingBase instanceof EntityHorse) || !((EntityHorse)par1EntityLivingBase).isTame();
-		}
-		else return false;
-	}
-	
-	@Override
-	public int getMaxSpawnedInChunk() {
-		return 1;
-	}
+    @Override
+    public boolean isBreedingItem(ItemStack stack){
+        return stack != null && stack.getItem() == JourneyItems.floroPedal;
+    }
+
+    @Override
+    public boolean canMateWith(EntityAnimal otherAnimal){
+        if (otherAnimal == this){
+            return false;
+        }else if (!this.isTamed()){
+            return false;
+        }else if (!(otherAnimal instanceof EntityFerret)){
+            return false;
+        }else{
+            EntityFerret entityferret = (EntityFerret)otherAnimal;
+            return !entityferret.isTamed() ? false : this.isInLove() && entityferret.isInLove();
+        }
+    }
+
+    @Override
+    public boolean getCanSpawnHere(){
+        return this.worldObj.rand.nextInt(3) != 0;
+    }
+    
+    @Override
+    public boolean isNotColliding(){
+        if (this.worldObj.checkNoEntityCollision(this.getEntityBoundingBox(), this) && this.worldObj.getCollidingBoundingBoxes(this, this.getEntityBoundingBox()).isEmpty() && !this.worldObj.isAnyLiquid(this.getEntityBoundingBox())){
+            BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
+
+            if (blockpos.getY() < this.worldObj.getSeaLevel()){
+                return false;
+            }
+
+            Block block = this.worldObj.getBlockState(blockpos.down()).getBlock();
+
+            if (block == Blocks.grass || block.isLeaves(worldObj, blockpos.down())){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public String getName(){
+        return this.hasCustomName() ? this.getCustomNameTag() : (this.isTamed() ? StatCollector.translateToLocal("entity.Cat.name") : super.getName());
+    }
+
+    @Override
+    public void setTamed(boolean tamed){
+        super.setTamed(tamed);
+    }
+
+    @Override
+    protected void setupTamedAI(){
+        if (this.avoidEntity == null){
+            this.avoidEntity = new EntityAIAvoidEntity(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D);
+        }
+
+        this.tasks.removeTask(this.avoidEntity);
+
+        if (!this.isTamed()){
+            this.tasks.addTask(4, this.avoidEntity);
+        }
+    }
+
+    @Override
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata){
+        livingdata = super.onInitialSpawn(difficulty, livingdata);
+
+        if (this.worldObj.rand.nextInt(7) == 0){
+            for (int i = 0; i < 2; ++i){
+                EntityFerret entityferret = new EntityFerret(this.worldObj);
+                entityferret.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+                entityferret.setGrowingAge(-24000);
+                this.worldObj.spawnEntityInWorld(entityferret);
+            }
+        }
+
+        return livingdata;
+    }
 
 	@Override
 	public String setLivingSound() {
-		return EnumSounds.BUNNY.getNonPrefixedName();
+		return null;
 	}
 
 	@Override
 	public String setHurtSound() {
-		return EnumSounds.BUNNY_HURT.getNonPrefixedName();
+		return null;
 	}
 
 	@Override
 	public String setDeathSound() {
-		return EnumSounds.BUNNY_HURT.getNonPrefixedName();
+		return null;
 	}
-	
-    public boolean allowLeashing()
-    {
-        return !this.isAngry() && super.allowLeashing();
-    }
 }

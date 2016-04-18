@@ -81,6 +81,7 @@ import net.journey.entity.mob.overworld.underground.EntityCavurn;
 import net.journey.entity.mob.overworld.underground.EntityGreenHonglow;
 import net.journey.entity.mob.overworld.underground.EntityHonglow;
 import net.journey.entity.mob.overworld.underground.EntityStonewalker;
+import net.journey.entity.mob.pet.EntityFerret;
 import net.journey.entity.mob.terrania.mob.EntityTerraScatterer;
 import net.journey.entity.mob.terrania.mob.EntityTerragrow;
 import net.journey.entity.mob.terrania.mob.EntityTerralight;
@@ -276,6 +277,10 @@ public class DimensionHelper {
 				EntityRegistry.addSpawn(EntityBigHongo.class, amount, 1, 1, EnumCreatureType.MONSTER, biome);
 				EntityRegistry.addSpawn(EntityMediumHongo.class, amount, 1, 1, EnumCreatureType.MONSTER, biome);
 				EntityRegistry.addSpawn(EntitySmallHongo.class, amount, 1, 1, EnumCreatureType.MONSTER, biome);
+				
+				EntityRegistry.addSpawn(EntityFerret.class, amount, 1, 1, EnumCreatureType.MONSTER, BiomeDictionary.getBiomesForType(Type.PLAINS));
+				EntityRegistry.addSpawn(EntityFerret.class, amount, 1, 1, EnumCreatureType.MONSTER, BiomeDictionary.getBiomesForType(Type.MESA));
+				EntityRegistry.addSpawn(EntityFerret.class, amount, 1, 1, EnumCreatureType.MONSTER, BiomeDictionary.getBiomesForType(Type.SAVANNA));
 				
 				EntityRegistry.addSpawn(EntityBoom.class, amount, 1, 1, EnumCreatureType.MONSTER, BiomeDictionary.getBiomesForType(Type.PLAINS));
 				EntityRegistry.addSpawn(EntityBoom.class, amount, 1, 1, EnumCreatureType.MONSTER, BiomeDictionary.getBiomesForType(Type.MESA));

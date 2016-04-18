@@ -1,13 +1,16 @@
 package net.journey.entity.mob.boss;
 
+import net.journey.JourneyAchievements;
 import net.journey.JourneyBlocks;
 import net.journey.JourneyItems;
 import net.journey.blocks.tileentity.TileEntityJourneyChest;
 import net.journey.entity.MobStats;
 import net.journey.entity.projectile.EntityDeathSkull;
+import net.journey.entity.projectile.EntityLightningBall;
 import net.journey.entity.projectile.EntityMagmaFireball;
 import net.journey.enums.EnumSounds;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
@@ -144,7 +147,12 @@ public class EntityBlazier extends EntityEssenceBoss implements IRangedAttackMob
 	}
 	
 	@Override
-	public void onDeath(DamageSource damage){
+	public void onDeath(DamageSource damage) {
+		if(damage.getEntity() instanceof EntityPlayer) {
+			EntityPlayer p = (EntityPlayer)damage.getEntity();
+			p.triggerAchievement(JourneyAchievements.achievementBlazier); {
+			}
+		}
 		this.worldObj.setBlockState(new BlockPos((int)Math.floor(this.posX + 0), ((int)Math.floor(this.posY + 0)), ((int)Math.floor(this.posZ + 0))), JourneyBlocks.boilingChest.getStateFromMeta(5));
 		TileEntityJourneyChest te = (TileEntityJourneyChest)worldObj.getTileEntity(new BlockPos((int)Math.floor(this.posX + 0), ((int)Math.floor(this.posY + 0)), ((int)Math.floor(this.posZ + 0))));
 		switch(rand.nextInt(2)) {

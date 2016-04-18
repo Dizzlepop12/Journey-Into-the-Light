@@ -81,6 +81,21 @@ public class LangRegistry {
 		writeToFile("achievement.terrania=The Enchanted Jungle");
 		writeToFile("achievement.cloudia=Ornate Sky Paradise");
 		writeToFile("achievement.cave=Agressive Caverns");
+		writeToFile("achievement.pet=Tiny Companion");
+		writeToFile("achievement.roc=Giant Birds are Pets too...");
+		
+		writeToFile("achievement.blazier=Fire Brawl");
+		writeToFile("achievement.eudor=Killer of Kings");
+		writeToFile("achievement.corallator=Cooking with Metal");
+		writeToFile("achievement.netherBeast=Nether Bullfighting");
+		writeToFile("achievement.witherBeast=Witherer of the Withering");
+		writeToFile("achievement.soul=Soul Reclaimer");
+		writeToFile("achievement.scale=Gone Fishin'");
+		writeToFile("achievement.thunderbird=Rough Flight");
+		writeToFile("achievement.logger=Planting the Trees");
+		writeToFile("achievement.sentry=Reforestation");
+		writeToFile("achievement.terra=Hero or Enemy?");
+		writeToFile("achievement.sky=Plunderer of the Sky");
 	}
 	
 	public void achievementDescription() {
@@ -97,6 +112,21 @@ public class LangRegistry {
 		writeToFile("achievement.terrania.desc=Unlock the Terrania Dimension");
 		writeToFile("achievement.cloudia.desc=Unlock the Cloudia Dimension");
 		writeToFile("achievement.cave.desc=Kill an Underground Mob");
+		writeToFile("achievement.pet.desc=Tame a Ferret");
+		writeToFile("achievement.roc.desc=Spawn a Pet Roc");
+		
+		writeToFile("achievement.blazier.desc=Kill the Blazier Boss");
+		writeToFile("achievement.eudor.desc=Kill the Eudor Boss");
+		writeToFile("achievement.corallator.desc=Kill the Corallator Boss");
+		writeToFile("achievement.netherBeast.desc=Kill the Nether Beast Boss");
+		writeToFile("achievement.witherBeast.desc=Kill the Withering Beast Boss");
+		writeToFile("achievement.soul.desc=Kill the Soul Watcher Boss");
+		writeToFile("achievement.scale.desc=Kill the Scale Boss");
+		writeToFile("achievement.thunderbird.desc=Kill the Thunderbird Boss");
+		writeToFile("achievement.logger.desc=Kill the Logger Boss");
+		writeToFile("achievement.sentry.desc=Kill the Sentry King Boss");
+		writeToFile("achievement.terra.desc=Kill the Terranian Protector Boss");
+		writeToFile("achievement.sky.desc=Kill the Sky Stalker Boss");
 	}
 	
 	public void misc() {

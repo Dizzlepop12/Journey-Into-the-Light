@@ -2,6 +2,7 @@ package net.journey.entity.mob.boss;
 
 import java.util.Random;
 
+import net.journey.JourneyAchievements;
 import net.journey.JourneyBlocks;
 import net.journey.JourneyItems;
 import net.journey.blocks.tileentity.TileEntityJourneyChest;
@@ -144,7 +145,12 @@ public class EntitySentryKing extends EntityEssenceBoss implements IRangedAttack
 	}
 	
 	@Override
-	public void onDeath(DamageSource damage){
+	public void onDeath(DamageSource damage) {
+		if(damage.getEntity() instanceof EntityPlayer) {
+			EntityPlayer p = (EntityPlayer)damage.getEntity();
+			p.triggerAchievement(JourneyAchievements.achievementSentry); {
+			}
+		}
 		this.worldObj.setBlockState(new BlockPos((int)Math.floor(this.posX + 0), ((int)Math.floor(this.posY + 0)), ((int)Math.floor(this.posZ + 0))), JourneyBlocks.corbaChest.getStateFromMeta(5));
 		TileEntityJourneyChest te = (TileEntityJourneyChest)worldObj.getTileEntity(new BlockPos((int)Math.floor(this.posX + 0), ((int)Math.floor(this.posY + 0)), ((int)Math.floor(this.posZ + 0))));
 		switch(rand.nextInt(2)) {

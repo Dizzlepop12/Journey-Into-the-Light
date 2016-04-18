@@ -1,5 +1,6 @@
 package net.journey.entity.mob.boss;
 
+import net.journey.JourneyAchievements;
 import net.journey.JourneyBlocks;
 import net.journey.JourneyItems;
 import net.journey.blocks.tileentity.TileEntityJourneyChest;
@@ -9,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -87,7 +89,12 @@ public class EntityNetherBeast extends EntityEssenceBoss {
 	}
 	
 	@Override
-	public void onDeath(DamageSource damage){
+	public void onDeath(DamageSource damage) {
+		if(damage.getEntity() instanceof EntityPlayer) {
+			EntityPlayer p = (EntityPlayer)damage.getEntity();
+			p.triggerAchievement(JourneyAchievements.achievementNetherBeast); {
+			}
+		}
 		this.worldObj.setBlockState(new BlockPos((int)Math.floor(this.posX + 0), ((int)Math.floor(this.posY + 0)), ((int)Math.floor(this.posZ + 0))), JourneyBlocks.netherChest.getStateFromMeta(5));
 		TileEntityJourneyChest te = (TileEntityJourneyChest)worldObj.getTileEntity(new BlockPos((int)Math.floor(this.posX + 0), ((int)Math.floor(this.posY + 0)), ((int)Math.floor(this.posZ + 0))));
 		switch(rand.nextInt(2)) {

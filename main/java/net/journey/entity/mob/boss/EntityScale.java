@@ -2,6 +2,7 @@ package net.journey.entity.mob.boss;
 
 import java.util.Random;
 
+import net.journey.JourneyAchievements;
 import net.journey.JourneyBlocks;
 import net.journey.JourneyItems;
 import net.journey.blocks.tileentity.TileEntityJourneyChest;
@@ -83,17 +84,24 @@ public class EntityScale extends EntityEssenceBoss implements IRangedAttackMob {
 	}
 	
 	@Override
-	public void onDeath(DamageSource damage){
+	public void onDeath(DamageSource damage) {
+		if(damage.getEntity() instanceof EntityPlayer) {
+			EntityPlayer p = (EntityPlayer)damage.getEntity();
+			p.triggerAchievement(JourneyAchievements.achievementScale); {
+			}
+		}
 		this.worldObj.setBlockState(new BlockPos((int)Math.floor(this.posX + 0), ((int)Math.floor(this.posY + 0)), ((int)Math.floor(this.posZ + 0))), JourneyBlocks.depthsChest.getStateFromMeta(5));
 		TileEntityJourneyChest te = (TileEntityJourneyChest)worldObj.getTileEntity(new BlockPos((int)Math.floor(this.posX + 0), ((int)Math.floor(this.posY + 0)), ((int)Math.floor(this.posZ + 0))));
 		switch(rand.nextInt(2)) {
 		case 0:
 			te.setInventorySlotContents(15, new ItemStack(JourneyItems.bubbleSword, 1));
-			te.setInventorySlotContents(1, new ItemStack(JourneyItems.corbaPortalGem, 4));
+			te.setInventorySlotContents(7, new ItemStack(JourneyItems.scaleBow, 1));
+			te.setInventorySlotContents(1, new ItemStack(JourneyItems.corbaPortalGem, 5));
 			break;
 		case 1:
 			te.setInventorySlotContents(1, new ItemStack(JourneyItems.bubbleSword, 1));
-			te.setInventorySlotContents(10, new ItemStack(JourneyItems.corbaPortalGem, 4));
+			te.setInventorySlotContents(4, new ItemStack(JourneyItems.scaleBow, 1));
+			te.setInventorySlotContents(10, new ItemStack(JourneyItems.corbaPortalGem, 6));
 			break;
 		}
 	}

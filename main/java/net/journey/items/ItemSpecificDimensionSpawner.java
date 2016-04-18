@@ -3,6 +3,7 @@ package net.journey.items;
 import java.util.List;
 import java.util.Random;
 
+import net.journey.JourneyAchievements;
 import net.journey.JourneyItems;
 import net.journey.JourneyTabs;
 import net.journey.entity.mob.boss.EntityBlazier;
@@ -72,6 +73,7 @@ public class ItemSpecificDimensionSpawner extends ItemMod {
 				    EnumSounds.playSound(EnumSounds.SUMMON, w, p);
 					roc.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
 					w.spawnEntityInWorld(roc);
+					p.triggerAchievement(JourneyAchievements.achievementRoc);
 				}
 				if(item == JourneyItems.sentryKingOrb) {
 					SlayerAPI.sendMessageToAll("It sucked all the energy out of this world, don't let it suck the energy out of you...", true);

@@ -39,21 +39,21 @@ public class EntitySummoningFX extends EntityFX{
 		glAlphaFunc(GL_GREATER, 0.003921569F);		
 		wr.begin(GL11.GL_QUADS, wr.getVertexFormat());
 		this.getBrightness(getBrightnessForRender(partialTicks));
-        		/**super.renderParticle(wr, e, partialTicks, f3, f7, f5, f6, f7);
+		/**super.renderParticle(wr, e, partialTicks, f3, f7, f5, f6, f7);
         		GlStateManager.disableBlend();
         		GlStateManager.enableLighting(); */
-        float scale = 0.1F*particleScale;
-        float x = (float)(this.prevPosX + (this.posX - this.prevPosX) * partialTicks - interpPosX);
-        float y = (float)(this.prevPosY + (this.posY - this.prevPosY) * partialTicks - interpPosY);
-        float z = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks - interpPosZ);
-        wr.pos(x - f3 * scale - f6 * scale, y - f4 * scale, z - f5 * scale - f7 * scale).endVertex();;
-        wr.pos(x - f3 * scale + f6 * scale, y + f4 * scale, z - f5 * scale + f7 * scale).endVertex();;
-        wr.pos(x + f3 * scale + f6 * scale, y + f4 * scale, z + f5 * scale + f7 * scale).endVertex();;
-        wr.pos(x + f3 * scale - f6 * scale, y - f4 * scale, z + f5 * scale - f7 * scale).endVertex();;
-        Tessellator.getInstance().draw();
-        glDisable(GL_BLEND);
-        glDepthMask(true);
-        glAlphaFunc(GL_GREATER, 0.1F);
+		float scale = 0.1F*particleScale;
+		float x = (float)(this.prevPosX + (this.posX - this.prevPosX) * partialTicks - interpPosX);
+		float y = (float)(this.prevPosY + (this.posY - this.prevPosY) * partialTicks - interpPosY);
+		float z = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks - interpPosZ);
+		wr.pos(x - f3 * scale - f6 * scale, y - f4 * scale, z - f5 * scale - f7 * scale).endVertex();;
+		wr.pos(x - f3 * scale + f6 * scale, y + f4 * scale, z - f5 * scale + f7 * scale).endVertex();;
+		wr.pos(x + f3 * scale + f6 * scale, y + f4 * scale, z + f5 * scale + f7 * scale).endVertex();;
+		wr.pos(x + f3 * scale - f6 * scale, y - f4 * scale, z + f5 * scale - f7 * scale).endVertex();;
+		Tessellator.getInstance().draw();
+		glDisable(GL_BLEND);
+		glDepthMask(true);
+		glAlphaFunc(GL_GREATER, 0.1F);
 	}
 	
 	public int getFXLayer(){

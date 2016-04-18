@@ -9,6 +9,8 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -16,6 +18,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.slayer.api.SlayerAPI;
 import net.slayer.api.entity.EntityModFlying;
 import net.slayer.api.entity.EntityModMob;
 
@@ -190,4 +193,24 @@ public class EntitySwampFly extends EntityModFlying {
             return true;
         }
     }
+    
+	@Override
+	public boolean interact(EntityPlayer player) {
+		ItemStack itemstack = player.inventory.getCurrentItem();
+
+		if (itemstack != null && itemstack.getItem() == Items.glass_bottle && !this.isChild()) {
+			if (itemstack.stackSize-- == 1) {
+				player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(SlayerAPI.toItem(JourneyBlocks.swampLamp)));
+			}
+			else if (!player.inventory.addItemStackToInventory(new ItemStack(SlayerAPI.toItem(JourneyBlocks.swampLamp)))) {
+				player.dropPlayerItemWithRandomChoice(new ItemStack(SlayerAPI.toItem(JourneyBlocks.swampLamp)), false);
+			}
+			
+			this.setDead();
+			return true;
+		}
+		else {
+			return super.interact(player);
+		}
+	}
 }

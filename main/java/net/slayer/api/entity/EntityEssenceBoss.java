@@ -4,6 +4,7 @@ import net.journey.client.render.particles.EntityModFireFX;
 import net.journey.client.render.particles.EntityModLavaFX;
 import net.journey.enums.EnumSounds;
 import net.journey.util.IEssenceBoss;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
@@ -44,11 +45,9 @@ public abstract class EntityEssenceBoss extends EntityModMob implements IEssence
 		return getMaxHealth();
 	}
 
+	@Override
 	protected void onDeathUpdate()
     {
-       // ++this.deathTicks;
-
-       // if (this.deathTicks >= 180 && this.deathTicks <= 200)
         {
             float f = (this.rand.nextFloat() - 0.5F) * 8.0F;
             float f1 = (this.rand.nextFloat() - 0.5F) * 4.0F;
@@ -73,7 +72,6 @@ public abstract class EntityEssenceBoss extends EntityModMob implements IEssence
 
         if (!this.worldObj.isRemote)
         {
-            //if (this.deathTicks > 150 && this.deathTicks % 5 == 0 && this.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
             {
                 i = 1000;
 
@@ -84,17 +82,8 @@ public abstract class EntityEssenceBoss extends EntityModMob implements IEssence
                     this.worldObj.spawnEntityInWorld(new EntityXPOrb(this.worldObj, this.posX, this.posY, this.posZ, j));
                 }
             }
-
-            //if (this.deathTicks == 1)
-            {
-                //this.worldObj.playBroadcastSound(1018, new BlockPos(this), 0);
-            }
         }
-
-        //this.moveEntity(0.0D, 0.10000000149011612D, 0.0D);
         this.renderYawOffset = this.rotationYaw += 20.0F;
-
-        //if (this.deathTicks == 200 && !this.worldObj.isRemote)
         {
             i = 2000;
 

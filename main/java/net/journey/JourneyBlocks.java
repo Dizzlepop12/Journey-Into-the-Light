@@ -25,6 +25,7 @@ import net.journey.blocks.BlockLock;
 import net.journey.blocks.BlockMiniColouredBricks;
 import net.journey.blocks.BlockRoot;
 import net.journey.blocks.BlockStalks;
+import net.journey.blocks.BlockSwampLamp;
 import net.journey.blocks.base.BlockModFire;
 import net.journey.blocks.base.BlockModOre;
 import net.journey.blocks.crop.BlockCorveggieCrop;
@@ -192,6 +193,8 @@ public class JourneyBlocks {
 	public static final Block pinkCloudiaCloud = new BlockCloud("pinkCloudiaCloud", "Pink Cloudia Cloud");
 	public static final Block blueCloudiaCloud = new BlockCloud("blueCloudiaCloud", "Blue Cloudia Cloud");
 	public static final Block lightBlueCloudiaCloud = new BlockCloud("lightBlueCloudiaCloud", "Light Blue Cloudia Cloud");
+	
+	public static final Block swampLamp = new BlockSwampLamp("swampLamp", "Swamp Fly Bottle", 0).setLightLevel(1);
 
 	public static final Block frozenChest = new BlockJourneyChest("frozenChest", "Frozen Chest");
 	public static final Block netherChest = new BlockJourneyChest("netherChest", "Nether Chest");
