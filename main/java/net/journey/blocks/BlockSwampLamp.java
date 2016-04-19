@@ -35,8 +35,8 @@ public class BlockSwampLamp extends BlockMod {
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
 		float f = 0.0625F;
-		return new AxisAlignedBB(pos.getX() + (6 * f), pos.getY(), pos.getZ() + (6 * f), pos.getX() + 1 - (6 * f), pos.getY() + 1.2F - (10 * f), pos.getZ() + 1 - (6 * f));
-	}
+		return new AxisAlignedBB(pos.getX() + (5 * f), pos.getY(), pos.getZ() + (5 * f), pos.getX() + 1 - (5 * f), pos.getY() + 1.2D - (10 * f), pos.getZ() + 1 - (5 * f));
+    }
 	
 	@SideOnly(Side.CLIENT)
 	@Override
